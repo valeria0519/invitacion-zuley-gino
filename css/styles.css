@@ -108,23 +108,34 @@ margin-top: var(--espacio-xl);
 }
 
 /* ================================================================
-EXPERIENCIA DE APERTURA — SOBRE v3
-Fondo marfil · sobre verde oliva · cinta gris perla · lacre bronce
-SÓLO modifica #sobre-screen y sus hijos. Todo lo demás intacto.
+EXPERIENCIA DE APERTURA — SOBRE (v3 — premium)
 ================================================================ */
 
+/* ── Pantalla completa — fondo marfil con textura ─────────────── */
 #sobre-screen {
 position: fixed;
 inset: 0;
 z-index: 1000;
-background: #f0ece3;
+/* Fondo marfil cálido en vez del verde anterior */
+background: #F5F0E7;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-gap: 1.4rem;
+gap: clamp(1rem, 3vh, 1.8rem);
 overflow: hidden;
-transition: opacity 0.9s ease 0.2s, visibility 0.9s ease 0.2s;
+transition: opacity 0.9s cubic-bezier(0.4,0,0.2,1) 0.15s,
+            visibility 0.9s linear 0.15s;
+}
+
+/* Textura SVG inline del papel */
+.sobre-screen__textura {
+position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+pointer-events: none;
+z-index: 0;
 }
 
 #sobre-screen.cerrado {
@@ -133,315 +144,613 @@ visibility: hidden;
 pointer-events: none;
 }
 
+/* Canvas de partículas */
 #petalos-canvas {
 position: absolute;
 inset: 0;
 width: 100%;
 height: 100%;
 pointer-events: none;
-z-index: 3;
+z-index: 8;
 }
 
-/* Gypsophila botánicos */
-.sobre-bg-botanico { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 1; }
+/* ── Botánicos de fondo ────────────────────────────────────────── */
+.sobre-bg-botanico {
+position: absolute;
+inset: 0;
+pointer-events: none;
+overflow: hidden;
+z-index: 1;
+}
 .botanico-tl {
 position: absolute;
-top: -4px; left: -4px;
-width: min(200px, 44vw);
+top: -12px;
+left: -12px;
+width: min(240px, 52vw);
 height: auto;
-opacity: 0.5;
+opacity: 0.9;
 }
 .botanico-br {
 position: absolute;
-bottom: -4px; right: -4px;
-width: min(200px, 44vw);
+bottom: -12px;
+right: -12px;
+width: min(240px, 52vw);
 height: auto;
 transform: rotate(180deg);
-opacity: 0.5;
+opacity: 0.9;
 }
 
-/* Texto superior */
-.sobre-pretexto {
-font-family: var(--f-serif);
-font-style: italic;
-font-size: clamp(0.82rem, 2.6vw, 0.95rem);
-color: rgba(61, 74, 53, 0.45);
-letter-spacing: 0.09em;
-text-align: center;
+/* ── Cabecera — texto introductorio ───────────────────────────── */
+.sobre-header {
 position: relative;
 z-index: 4;
-transition: opacity 0.35s ease;
+text-align: center;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 0.25rem;
+transition: opacity 0.4s ease;
 }
 
-/* Escena */
+.sobre-pretexto {
+font-family: var(--f-sans);
+font-size: clamp(0.6rem, 2vw, 0.72rem);
+font-weight: 400;
+letter-spacing: 0.32em;
+text-transform: uppercase;
+color: #858A72;
+text-align: center;
+}
+
+.sobre-pretexto-nombres {
+font-family: var(--f-script);
+font-size: clamp(1.8rem, 7vw, 2.4rem);
+color: #414936;
+line-height: 1;
+}
+
+.sobre-pretexto-fecha {
+font-family: var(--f-serif);
+font-size: clamp(0.72rem, 2.2vw, 0.85rem);
+font-weight: 300;
+letter-spacing: 0.28em;
+color: #858A72;
+}
+
+/* ── Escena — contiene el sobre + tarjeta ─────────────────────── */
 .sobre-escena {
 position: relative;
-width: min(320px, 86vw);
-height: min(224px, 60vw);
-perspective: 800px;
-z-index: 4;
+z-index: 5;
+/* Altura total: sobre + zona de emergencia de tarjeta */
+width: min(320px, 88vw);
+height: min(380px, 70vh);
+display: flex;
+align-items: flex-end;
+justify-content: center;
 }
 
-/* Sombra proyectada */
+/* Wrapper con perspectiva 3D */
+.sobre-wrapper {
+position: relative;
+width: 100%;
+height: min(216px, 60vw);
+perspective: 900px;
+perspective-origin: 50% 30%;
+}
+
+/* ── Sombra del sobre ─────────────────────────────────────────── */
 .sobre-sombra {
 position: absolute;
-bottom: -14px;
+bottom: -16px;
 left: 50%;
 transform: translateX(-50%);
-width: 80%;
-height: 16px;
-background: rgba(0,0,0,0.13);
-filter: blur(11px);
+width: 78%;
+height: 18px;
+background: radial-gradient(ellipse, rgba(48,51,41,0.35) 0%, transparent 70%);
+filter: blur(8px);
 border-radius: 50%;
-transition: width 0.65s ease, opacity 0.65s ease;
+transition:
+    width   1.0s cubic-bezier(0.4,0,0.2,1) 0.3s,
+    opacity 1.0s cubic-bezier(0.4,0,0.2,1) 0.3s,
+    transform 1.0s cubic-bezier(0.4,0,0.2,1) 0.3s;
+z-index: 0;
+pointer-events: none;
 }
 
-/* Cuerpo del sobre — verde oliva */
+/* ── Tarjeta de invitación (comienza oculta dentro del sobre) ─── */
+.sobre__tarjeta {
+position: absolute;
+/* Empieza escondida dentro del sobre (bottom: 12px para asomarse) */
+bottom: 12px;
+left: 50%;
+transform: translateX(-50%) translateY(calc(100% - 12px));
+width: 84%;
+/* La tarjeta es más alta que el sobre para poder emerger */
+height: min(240px, 65vw);
+background: #F5F0E7;
+border: 1px solid rgba(183,154,98,0.3);
+z-index: 3;
+overflow: hidden;
+/* Sombra en la tarjeta (proyectada sobre el sobre mientras emerge) */
+box-shadow:
+    0 -4px 20px rgba(48,51,41,0.0),
+    0 2px 10px rgba(48,51,41,0.08);
+transition: none; /* controlado por JS */
+}
+
+/* Marco interior dorado */
+.tarjeta__marco {
+position: absolute;
+inset: 7px;
+border: 1px solid rgba(183,154,98,0.2);
+pointer-events: none;
+z-index: 2;
+}
+
+/* Cuatro esquinas decorativas */
+.tarjeta__esquina {
+position: absolute;
+width: 14px;
+height: 14px;
+z-index: 3;
+}
+.tarjeta__esquina--tl { top: 10px;    left: 10px;  border-top: 1px solid rgba(183,154,98,0.5); border-left: 1px solid rgba(183,154,98,0.5); }
+.tarjeta__esquina--tr { top: 10px;    right: 10px; border-top: 1px solid rgba(183,154,98,0.5); border-right: 1px solid rgba(183,154,98,0.5); }
+.tarjeta__esquina--bl { bottom: 10px; left: 10px;  border-bottom: 1px solid rgba(183,154,98,0.5); border-left: 1px solid rgba(183,154,98,0.5); }
+.tarjeta__esquina--br { bottom: 10px; right: 10px; border-bottom: 1px solid rgba(183,154,98,0.5); border-right: 1px solid rgba(183,154,98,0.5); }
+
+/* Eucalipto detrás de los textos */
+.tarjeta__botanico {
+position: absolute;
+inset: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+pointer-events: none;
+z-index: 1;
+opacity: 0; /* aparece al final */
+transition: opacity 0.8s ease;
+}
+.tarjeta__botanico svg {
+width: 60%;
+height: auto;
+}
+.sobre__tarjeta.revelada .tarjeta__botanico {
+opacity: 1;
+}
+
+/* Contenido textual de la tarjeta */
+.tarjeta__contenido {
+position: absolute;
+inset: 0;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 0.3rem;
+z-index: 4;
+padding: 1.5rem 1rem 2.5rem;
+/* Los textos aparecen progresivamente (JS añade clase) */
+}
+
+.tarjeta__eyebrow {
+font-family: var(--f-sans);
+font-size: clamp(0.55rem, 1.8vw, 0.68rem);
+font-weight: 400;
+letter-spacing: 0.32em;
+text-transform: uppercase;
+color: #B79A62;
+opacity: 0;
+transform: translateY(8px);
+transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.tarjeta__titulo {
+font-family: var(--f-script);
+font-size: clamp(2rem, 8vw, 2.8rem);
+color: #414936;
+line-height: 1;
+opacity: 0;
+transform: translateY(10px);
+transition: opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s;
+}
+.tarjeta__divisor {
+width: 40px;
+height: 1px;
+background: linear-gradient(to right, transparent, #B79A62, transparent);
+opacity: 0;
+transition: opacity 0.6s ease 0.3s;
+}
+.tarjeta__fecha {
+font-family: var(--f-serif);
+font-size: clamp(0.65rem, 2vw, 0.8rem);
+font-weight: 300;
+letter-spacing: 0.3em;
+color: #858A72;
+opacity: 0;
+transform: translateY(8px);
+transition: opacity 0.7s ease 0.38s, transform 0.7s ease 0.38s;
+}
+.tarjeta__lugar {
+font-family: var(--f-sans);
+font-size: clamp(0.6rem, 1.8vw, 0.72rem);
+font-weight: 300;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+color: #858A72;
+opacity: 0;
+transform: translateY(8px);
+transition: opacity 0.7s ease 0.5s, transform 0.7s ease 0.5s;
+}
+
+/* Textos visibles (clase JS) */
+.sobre__tarjeta.revelada .tarjeta__eyebrow,
+.sobre__tarjeta.revelada .tarjeta__titulo,
+.sobre__tarjeta.revelada .tarjeta__divisor,
+.sobre__tarjeta.revelada .tarjeta__fecha,
+.sobre__tarjeta.revelada .tarjeta__lugar {
+opacity: 1;
+transform: translateY(0);
+}
+
+/* Hint de scroll en la tarjeta */
+.tarjeta__scroll-hint {
+position: absolute;
+bottom: 14px;
+left: 0; right: 0;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 4px;
+opacity: 0;
+transition: opacity 0.7s ease 0.8s;
+}
+.sobre__tarjeta.revelada .tarjeta__scroll-hint {
+opacity: 1;
+}
+.scroll-hint__texto {
+font-family: var(--f-sans);
+font-size: 0.58rem;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+color: #B79A62;
+opacity: 0.7;
+}
+.scroll-hint__flecha {
+width: 14px;
+height: 22px;
+animation: scroll-pulse 1.8s ease-in-out infinite 1.5s;
+}
+@keyframes scroll-pulse {
+0%, 100% { transform: translateY(0); opacity: 0.7; }
+50%       { transform: translateY(3px); opacity: 1; }
+}
+
+/* ── Cuerpo del sobre ─────────────────────────────────────────── */
 .sobre {
 position: absolute;
 inset: 0;
-background: #4a5e3a;
-border-radius: 1px;
+/* Verde oliva oscuro — color principal del sobre */
+background: #414936;
+border-radius: 3px;
 box-shadow:
-  0 14px 44px rgba(0,0,0,0.22),
-  0 3px 10px rgba(0,0,0,0.12),
-  inset 0 0 0 1px rgba(255,255,255,0.07);
+    0 18px 52px rgba(30,34,22,0.42),
+    0  4px 12px rgba(30,34,22,0.22),
+    inset 0 1px 0 rgba(140,155,110,0.2);
 overflow: visible;
+z-index: 4;
 }
 
+/* Capa de textura + iluminación lateral (overlay) */
+.sobre::after {
+content: '';
+position: absolute;
+inset: 0;
+border-radius: 3px;
+background:
+    linear-gradient(105deg,
+        rgba(30,34,22,0.35) 0%,
+        transparent 28%,
+        transparent 72%,
+        rgba(20,24,14,0.3) 100%
+    ),
+    linear-gradient(180deg,
+        rgba(110,125,88,0.12) 0%,
+        transparent 40%
+    );
+pointer-events: none;
+z-index: 10;
+}
+
+/* Interior del sobre (solapas, con clip) */
 .sobre__interior {
 position: absolute;
 inset: 0;
 overflow: hidden;
-border-radius: 1px;
+border-radius: 3px;
+z-index: 1;
 }
 
-/* Solapas en tonos de verde */
+/* Solapa trasera V */
 .sobre__solapa-trasera {
 position: absolute;
 bottom: 0; left: 0; right: 0;
 height: 55%;
-background: #3a4d2c;
+background: #3a4130;
 clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
 z-index: 0;
 }
 
+/* Solapas laterales con degradado tonal */
 .sobre__lado {
 position: absolute;
 top: 0; bottom: 0;
 width: 54%;
-background: #415535;
 z-index: 1;
 }
-.sobre__lado--izq { left: 0;  clip-path: polygon(0 0, 100% 47%, 0 100%); }
-.sobre__lado--der { right: 0; clip-path: polygon(0 47%, 100% 0, 100% 100%); }
+.sobre__lado--izq {
+left: 0;
+background: linear-gradient(to right, #3a4232, #475040);
+clip-path: polygon(0 0, 100% 47%, 0 100%);
+}
+.sobre__lado--der {
+right: 0;
+background: linear-gradient(to left, #323829, #404938);
+clip-path: polygon(0 47%, 100% 0, 100% 100%);
+}
 
+/* Solapa inferior */
 .sobre__solapa-bottom {
 position: absolute;
 bottom: 0; left: 0; right: 0;
 height: 52%;
-background: #364a28;
+background: linear-gradient(to top, #2e3328, #3d4535);
 clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
 z-index: 2;
 }
 
-/* Tarjeta interior — marfil */
-.sobre__tarjeta {
+/* Capa de luz/sombra interior (perimetral) */
+.sobre__luz-interior {
 position: absolute;
-bottom: 8px;
-left: 50%;
-transform: translateX(-50%) translateY(0);
-width: 76%;
-background: #f4f0e6;
-border: 1px solid rgba(201,168,76,0.3);
-padding: 14px 12px 12px;
-text-align: center;
-z-index: 4;
-transition: transform 0.9s cubic-bezier(0.34, 1.1, 0.64, 1) 0.6s;
-}
-
-.sobre__tarjeta::before {
-content: '';
-position: absolute;
-inset: 4px;
-border: 1px solid rgba(201,168,76,0.15);
+inset: 0;
+background:
+    radial-gradient(ellipse at 50% 0%, rgba(160,175,130,0.08) 0%, transparent 60%),
+    linear-gradient(to bottom, rgba(160,175,130,0.05) 0%, transparent 40%);
+z-index: 3;
 pointer-events: none;
 }
 
-.sobre__tarjeta::after {
-content: '';
-position: absolute;
-top: 8px; left: 8px;
-width: 13px; height: 13px;
-border-top: 1px solid rgba(201,168,76,0.45);
-border-left: 1px solid rgba(201,168,76,0.45);
-}
-
-.sobre__tarjeta-corner {
-position: absolute;
-bottom: 8px; right: 8px;
-width: 13px; height: 13px;
-border-bottom: 1px solid rgba(201,168,76,0.45);
-border-right: 1px solid rgba(201,168,76,0.45);
-}
-
-.sobre--abierto .sobre__tarjeta {
-transform: translateX(-50%) translateY(-52%);
-}
-
-/* Textos de la tarjeta */
-.tarjeta__anuncio {
-font-family: var(--f-sans);
-font-size: 0.52rem;
-font-weight: 400;
-letter-spacing: 0.22em;
-text-transform: uppercase;
-color: var(--c-dorado);
-opacity: 0.72;
-margin-bottom: 0.35rem;
-display: block;
-}
-
-.tarjeta__nombres {
-font-family: var(--f-script);
-font-size: clamp(1.5rem, 7.5vw, 2.1rem);
-color: var(--c-verde);
-line-height: 1.05;
-margin-bottom: 0.2rem;
-display: block;
-}
-
-.tarjeta__fecha {
-font-family: var(--f-serif);
-font-size: 0.68rem;
-font-weight: 300;
-letter-spacing: 0.3em;
-color: var(--c-texto-suave);
-opacity: 0.78;
-display: block;
-}
-
-/* Solapa superior */
+/* ── Solapa superior — 3D flip ────────────────────────────────── */
 .sobre__solapa-top-wrap {
 position: absolute;
 top: 0; left: 0; right: 0;
-height: 53%;
+height: 54%;
 z-index: 6;
 transform-origin: top center;
 transform: rotateX(0deg);
-transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+/* Transición cinematográfica */
+transition: transform 1.1s cubic-bezier(0.42,0,0.18,1);
 transform-style: preserve-3d;
 }
 
 .sobre__solapa-top {
 position: absolute;
 inset: 0;
-background: #526644;
+/* Solapa ligeramente más clara para separación visual */
+background: linear-gradient(170deg, #4e5645 0%, #3f4737 60%, #363d2e 100%);
 clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
+/* Borde inferior muy sutil */
 }
 
+/* Pliegue de la solapa */
 .sobre__pliegue {
 position: absolute;
 bottom: 0; left: 0; right: 0;
 height: 1px;
-background: linear-gradient(to right, transparent, rgba(255,255,255,0.12) 35%, rgba(255,255,255,0.12) 65%, transparent);
+background: linear-gradient(
+    to right,
+    transparent 5%,
+    rgba(183,154,98,0.22) 30%,
+    rgba(183,154,98,0.22) 70%,
+    transparent 95%
+);
 }
 
+/* Sombra que proyecta la solapa cerrada sobre el cuerpo */
+.sobre__solapa-sombra {
+position: absolute;
+bottom: -8px; left: 5%; right: 5%;
+height: 10px;
+background: rgba(20,24,14,0.3);
+filter: blur(6px);
+border-radius: 50%;
+transition: opacity 0.5s ease;
+}
+.sobre--abierto .sobre__solapa-sombra {
+opacity: 0;
+}
+
+/* Solapa volteada al abrirse */
 .sobre--abierto .sobre__solapa-top-wrap {
 transform: rotateX(-175deg);
 }
 
-/* Cinta vertical gris perla */
-.sobre__cinta {
-position: absolute;
-top: 0; bottom: 0;
-left: 50%;
-transform: translateX(-50%);
-width: 28px;
-background: rgba(220, 226, 222, 0.65);
-z-index: 5;
-border-left:  1px solid rgba(255,255,255,0.4);
-border-right: 1px solid rgba(255,255,255,0.4);
-transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
-pointer-events: none;
-}
-.sobre__cinta::before,
-.sobre__cinta::after {
-content: '';
-position: absolute;
-top: 0; bottom: 0;
-width: 1px;
-background: rgba(255,255,255,0.45);
-}
-.sobre__cinta::before { left: 8px; }
-.sobre__cinta::after  { right: 8px; }
-
-.sobre--abierto .sobre__cinta {
-opacity: 0;
-transform: translateX(-50%) scaleY(0.6);
-transform-origin: bottom center;
-}
-
-/* Sello de lacre bronce */
+/* ── SELLO DE LACRE ───────────────────────────────────────────── */
 .sobre__sello {
 position: absolute;
 top: 50%;
 left: 50%;
 transform: translate(-50%, -46%);
-z-index: 8;
-width: 62px;
-height: 62px;
-transition: opacity 0.38s ease 0.05s, transform 0.38s ease 0.05s;
-animation: sello-pulso 3.2s ease-in-out infinite;
+z-index: 9;
+width: clamp(64px, 18vw, 80px);
+height: clamp(64px, 18vw, 80px);
+padding: 0;
+background: none;
+border: none;
+cursor: pointer;
+transition:
+    opacity  0.45s ease,
+    transform 0.45s cubic-bezier(0.34,1.2,0.64,1);
 }
 
-@keyframes sello-pulso {
-0%, 100% { filter: drop-shadow(0 2px 8px rgba(0,0,0,0.25)); }
-50%       { filter: drop-shadow(0 4px 16px rgba(184,145,58,0.45)); }
+/* Presión al hacer click */
+.sobre__sello:active .lacre {
+transform: scale(0.92);
 }
 
-.sobre__sello-svg { width: 100%; height: 100%; }
+/* Hover glow */
+.sobre__sello:hover .lacre__base,
+.sobre__sello:focus-visible .lacre__base {
+box-shadow: 0 0 18px rgba(183,154,98,0.35), 0 0 6px rgba(183,154,98,0.2);
+}
 
+/* Sello desaparece al abrirse */
 .sobre--abierto .sobre__sello {
 opacity: 0;
-transform: translate(-50%, -46%) scale(0.6);
-animation: none;
+transform: translate(-50%, -46%) scale(0.7);
+pointer-events: none;
 }
 
-/* Mensaje al invitado */
+/* Contenedor del lacre */
+.lacre {
+position: relative;
+width: 100%;
+height: 100%;
+transition: transform 0.18s cubic-bezier(0.34,1.4,0.64,1);
+}
+
+/* Base circular verde oliva (fondo del lacre) */
+.lacre__base {
+position: absolute;
+inset: 4px;
+border-radius: 50%;
+background: radial-gradient(circle at 38% 32%, #5a6451 0%, #414936 45%, #303429 100%);
+box-shadow:
+    0 4px 14px rgba(20,24,14,0.55),
+    0 1px 4px rgba(20,24,14,0.35),
+    inset 0 1px 2px rgba(130,145,110,0.3),
+    inset 0 -1px 3px rgba(20,24,14,0.4);
+transition: box-shadow 0.3s ease;
+}
+
+/* SVG con textura rugosa del lacre */
+.lacre__textura-svg {
+position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+pointer-events: none;
+}
+
+/* SVG del anillo decorativo exterior */
+.lacre__anillo-svg {
+position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+pointer-events: none;
+}
+
+/* Monograma del lacre */
+.lacre__monograma {
+position: absolute;
+inset: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+font-family: var(--f-script);
+font-size: clamp(0.95rem, 4vw, 1.2rem);
+color: #d4af6a;
+text-shadow:
+    0 1px 3px rgba(20,24,14,0.6),
+    0 0 8px rgba(183,154,98,0.3);
+letter-spacing: 0.02em;
+line-height: 1;
+pointer-events: none;
+/* Compensar la alineación visual del script */
+padding-top: 2px;
+}
+
+/* Tooltip "Toca el sello" */
+.sobre__sello-hint {
+position: absolute;
+bottom: calc(100% + 10px);
+left: 50%;
+transform: translateX(-50%);
+white-space: nowrap;
+font-family: var(--f-sans);
+font-size: 0.6rem;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+color: rgba(65,73,54,0.65);
+pointer-events: none;
+animation: hint-pulse 2.8s ease-in-out infinite 1.2s;
+}
+@keyframes hint-pulse {
+0%, 100% { opacity: 0.65; transform: translateX(-50%) translateY(0); }
+50%       { opacity: 1;    transform: translateX(-50%) translateY(-2px); }
+}
+
+/* Hint desaparece al abrirse */
+.sobre--abierto .sobre__sello-hint { opacity: 0; }
+
+/* ── Tagline y mensaje ────────────────────────────────────────── */
+.sobre-tagline {
+font-family: var(--f-serif);
+font-style: italic;
+font-size: clamp(0.88rem, 2.8vw, 1rem);
+color: rgba(65,73,54,0.6);
+text-align: center;
+position: relative;
+z-index: 4;
+transition: opacity 0.4s ease;
+}
+
 .sobre-mensaje-invitado {
 font-family: var(--f-serif);
 font-style: italic;
-font-size: clamp(0.88rem, 2.8vw, 1.02rem);
-color: rgba(61, 74, 53, 0.55);
+font-size: clamp(0.82rem, 2.6vw, 0.95rem);
+color: rgba(65,73,54,0.55);
 text-align: center;
-max-width: 290px;
+max-width: 300px;
 line-height: 1.65;
 padding-inline: var(--espacio-md);
-min-height: 2.4rem;
+min-height: 2rem;
 position: relative;
 z-index: 4;
-transition: opacity 0.35s ease;
+transition: opacity 0.4s ease;
 }
 
-/* Hint parpadeante */
-.sobre-hint {
+/* ── Botón de teclado (visualmente oculto, accesible) ─────────── */
+.sobre-btn {
+position: absolute;
+width: 1px;
+height: 1px;
+padding: 0;
+overflow: hidden;
+clip: rect(0,0,0,0);
+white-space: nowrap;
+border: 0;
+/* Aparece al foco de teclado */
+}
+.sobre-btn:focus-visible {
+position: relative;
+width: auto;
+height: auto;
+clip: auto;
+overflow: visible;
+white-space: normal;
 font-family: var(--f-sans);
-font-size: 0.58rem;
-font-weight: 300;
-letter-spacing: 0.28em;
+font-size: 0.68rem;
+font-weight: 500;
+letter-spacing: 0.26em;
 text-transform: uppercase;
-color: rgba(61, 74, 53, 0.38);
-text-align: center;
-position: relative;
-z-index: 4;
-transition: opacity 0.35s ease;
-animation: parpadeo-hint 2.8s ease-in-out 2s infinite;
-}
-
-@keyframes parpadeo-hint {
-0%, 100% { opacity: 0.38; }
-50%       { opacity: 0.8; }
+color: #414936;
+background: #B79A62;
+padding: 0.9rem 2.2rem;
+cursor: pointer;
+outline: 2px solid #B79A62;
+outline-offset: 3px;
+transition: transform 0.2s ease;
 }
 
 /* ================================================================
@@ -477,10 +786,10 @@ transition: opacity 0.75s ease, transform 0.75s ease;
 #sobre-screen, #contenido-principal { transition: none; }
 .sobre__solapa-top-wrap { transition: none; }
 .sobre__tarjeta { transition: none; }
-.sobre__sello { transition: none; animation: none; }
-.sobre__cinta { transition: none; }
-.sobre-pretexto, .sobre-mensaje-invitado { transition: none; }
-.sobre-hint { animation: none; opacity: 0.6; }
+.sobre__sello { transition: none; }
+.sobre-pretexto, .sobre-mensaje-invitado, .sobre-tagline { transition: none; }
+.scroll-hint__flecha { animation: none; }
+.sobre__sello-hint { animation: none; }
 }
 
 /* ================================================================

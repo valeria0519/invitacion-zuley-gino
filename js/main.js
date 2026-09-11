@@ -73,61 +73,61 @@ return (!isNaN(n) && n >= 0) ? n : 10; // sin límite por defecto
 const CODIGO_INVITADO = urlParams.get('codigo') || '';
 
 /* ================================================================
-1. EXPERIENCIA DE APERTURA — SOBRE ANIMADO
+1. EXPERIENCIA DE APERTURA — SOBRE ANIMADO (v3 premium)
 ================================================================ */
 const sobreScreen  = document.getElementById('sobre-screen');
 const sobre        = document.getElementById('sobre');
+const sobreWrapper = document.getElementById('sobre-wrapper');
 const sobreSombra  = document.getElementById('sobre-sombra');
-const sobreEscena  = document.getElementById('sobre-escena');
-const hintEl       = document.getElementById('sobre-hint');
+const sobreSello   = document.getElementById('sobre-sello');
+const btnAbrir     = document.getElementById('btn-abrir-sobre');
+const sobreTarjeta = document.getElementById('sobre-tarjeta');
 const contenido    = document.getElementById('contenido-principal');
 const musicControl = document.getElementById('music-control');
 const mensajeEl    = document.getElementById('sobre-mensaje-invitado');
-const pretextoEl   = document.getElementById('sobre-pretexto');
+const sobreHeader  = document.getElementById('sobre-header');
+const sobreTagline = document.getElementById('sobre-tagline');
 
+/* Preferencia de movimiento reducido */
+const prefReducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ── Canvas de partículas ─────────────────────────────────────── */
 const petalosCanvas = document.getElementById('petalos-canvas');
 const pCtx          = petalosCanvas.getContext('2d');
 let petalosRaf;
-let petalosAnimando = false;
-let petalos         = [];
+let petalos = [];
 
-/* Colores dorados de la paleta */
-const PETAL_COLORS = ['#dde8d8','#f0f4ec','#c8cdb8','#b8913a','#d4ad68','#e8efe4','#f5e6c0'];
+/* Paleta: dorado envejecido + marfil + verde salvia */
+const PETAL_COLORS = ['#B79A62', '#d4b87a', '#9a7d3a', '#e8ddc0', '#858A72'];
 
-/* Dimensionar el canvas al tamaño real de la pantalla */
 function dimensionarCanvas() {
 const rect = sobreScreen.getBoundingClientRect();
 petalosCanvas.width  = rect.width  || window.innerWidth;
 petalosCanvas.height = rect.height || window.innerHeight;
 }
-
 dimensionarCanvas();
 window.addEventListener('resize', dimensionarCanvas);
 
-/** Crea una partícula que explota desde (cx, cy) hacia arriba y los lados */
 function crearPetalo(cx, cy) {
-const angBase = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.45;
-const speed   = 1.8 + Math.random() * 2.8;
-const tipo    = Math.floor(Math.random() * 4); // 0=pétalo 1=rombo 2=bastón 3=punto
+const angBase = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.5;
+const speed   = 1.4 + Math.random() * 2.4;
+const tipo    = Math.floor(Math.random() * 4);
 return {
-x: cx, y: cy,
-vx: Math.cos(angBase) * speed,
-vy: Math.sin(angBase) * speed - 0.8,
-gravity: 0.055 + Math.random() * 0.04,
-angle: Math.random() * Math.PI * 2,
-va:    (Math.random() - 0.5) * 0.09,
-r:     2.5 + Math.random() * 4.5,
-tipo,
-color: PETAL_COLORS[Math.floor(Math.random() * PETAL_COLORS.length)],
-alpha: 0.88 + Math.random() * 0.12,
-decay: 0.007 + Math.random() * 0.006,
-alive: true,
+    x: cx, y: cy,
+    vx: Math.cos(angBase) * speed,
+    vy: Math.sin(angBase) * speed - 0.6,
+    gravity: 0.04 + Math.random() * 0.035,
+    angle:  Math.random() * Math.PI * 2,
+    va:     (Math.random() - 0.5) * 0.07,
+    r:      2 + Math.random() * 5,
+    tipo,
+    color: PETAL_COLORS[Math.floor(Math.random() * PETAL_COLORS.length)],
+    alpha: 0.85 + Math.random() * 0.15,
+    decay: 0.005 + Math.random() * 0.007,
+    alive: true,
 };
 }
 
-/** Dibuja una partícula según su tipo */
 function dibujarPetalo(p) {
 pCtx.save();
 pCtx.translate(p.x, p.y);
@@ -135,155 +135,198 @@ pCtx.rotate(p.angle);
 pCtx.globalAlpha = p.alpha;
 pCtx.fillStyle   = p.color;
 pCtx.strokeStyle = p.color;
-
 if (p.tipo === 0) {
-/* Pétalo alargado */
-pCtx.beginPath();
-pCtx.ellipse(0, 0, p.r * 0.35, p.r, 0, 0, Math.PI * 2);
-pCtx.fill();
+    pCtx.beginPath();
+    pCtx.ellipse(0, 0, p.r * 0.32, p.r, 0, 0, Math.PI * 2);
+    pCtx.fill();
 } else if (p.tipo === 1) {
-/* Rombo */
-pCtx.beginPath();
-pCtx.moveTo(0, -p.r);
-pCtx.lineTo(p.r * 0.45, 0);
-pCtx.lineTo(0, p.r);
-pCtx.lineTo(-p.r * 0.45, 0);
-pCtx.closePath();
-pCtx.fill();
+    pCtx.beginPath();
+    pCtx.moveTo(0, -p.r);
+    pCtx.lineTo(p.r * 0.42, 0);
+    pCtx.lineTo(0, p.r);
+    pCtx.lineTo(-p.r * 0.42, 0);
+    pCtx.closePath();
+    pCtx.fill();
 } else if (p.tipo === 2) {
-/* Bastón */
-pCtx.lineWidth = p.r * 0.22;
-pCtx.lineCap   = 'round';
-pCtx.beginPath();
-pCtx.moveTo(0, -p.r * 0.65);
-pCtx.lineTo(0,  p.r * 0.65);
-pCtx.stroke();
+    pCtx.lineWidth = p.r * 0.2;
+    pCtx.lineCap   = 'round';
+    pCtx.beginPath();
+    pCtx.moveTo(0, -p.r * 0.6);
+    pCtx.lineTo(0,  p.r * 0.6);
+    pCtx.stroke();
 } else {
-/* Punto */
-pCtx.beginPath();
-pCtx.arc(0, 0, p.r * 0.5, 0, Math.PI * 2);
-pCtx.fill();
+    pCtx.beginPath();
+    pCtx.arc(0, 0, p.r * 0.45, 0, Math.PI * 2);
+    pCtx.fill();
 }
 pCtx.restore();
 }
 
-/** Loop de animación de partículas */
 function loopPetalos() {
 pCtx.clearRect(0, 0, petalosCanvas.width, petalosCanvas.height);
-
 let hayVivas = false;
 for (const p of petalos) {
-if (!p.alive) continue;
-p.x     += p.vx;
-p.y     += p.vy;
-p.vy    += p.gravity;
-p.vx    *= 0.986;
-p.angle += p.va;
-p.alpha -= p.decay;
-if (p.alpha <= 0) { p.alive = false; continue; }
-hayVivas = true;
-dibujarPetalo(p);
+    if (!p.alive) continue;
+    p.x += p.vx; p.y += p.vy;
+    p.vy += p.gravity; p.vx *= 0.988;
+    p.angle += p.va; p.alpha -= p.decay;
+    if (p.alpha <= 0) { p.alive = false; continue; }
+    hayVivas = true;
+    dibujarPetalo(p);
 }
-
 if (hayVivas) {
-petalosRaf = requestAnimationFrame(loopPetalos);
+    petalosRaf = requestAnimationFrame(loopPetalos);
 } else {
-petalosAnimando = false;
-pCtx.clearRect(0, 0, petalosCanvas.width, petalosCanvas.height);
+    pCtx.clearRect(0, 0, petalosCanvas.width, petalosCanvas.height);
 }
 }
 
-/**
- * Lanza N pétalos desde las coordenadas (cx, cy) relativas al #sobre-screen.
- * Se llama cuando la solapa del sobre termina de abrirse.
- */
-function lanzarPetalos(cx, cy, n = 28) {
-// Respetar preferencia de movimiento reducido
-if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+function lanzarPetalos(cx, cy, n = 32) {
+if (prefReducido) return;
 cancelAnimationFrame(petalosRaf);
 petalos = [];
 for (let i = 0; i < n; i++) petalos.push(crearPetalo(cx, cy));
-petalosAnimando = true;
 petalosRaf = requestAnimationFrame(loopPetalos);
 }
 
-/* Inyectar mensaje personalizado al invitado */
+/* ── Inyectar mensaje personalizado al invitado ───────────────── */
 if (INVITADO) {
 mensajeEl.innerHTML =
-`<em>${INVITADO},</em><br />queremos que seas parte de nuestra historia.`;
+    `<em>${INVITADO},</em><br />queremos que seas parte de nuestra historia.`;
 } else {
 mensajeEl.textContent = 'Queremos que seas parte de nuestra historia.';
 }
 
-/* Ajustar máximo de acompañantes en el formulario */
+/* ── Ajustar máximo de acompañantes ──────────────────────────── */
 const inputNumAcomp = document.getElementById('num-acompanantes');
-if (inputNumAcomp) {
-inputNumAcomp.max = MAX_ACOMPANANTES;
+if (inputNumAcomp) inputNumAcomp.max = MAX_ACOMPANANTES;
+
+/* ── Secuencia principal de apertura ─────────────────────────── */
+let yaAbierto = false;
+
+function abrirSobre() {
+if (yaAbierto) return;
+yaAbierto = true;
+
+/* Deshabilitar interacciones durante la animación */
+sobreSello.disabled = true;
+btnAbrir.disabled   = true;
+
+if (prefReducido) {
+    /* Movimiento reducido: saltar animación */
+    finalizarApertura();
+    return;
 }
 
-/** Secuencia de apertura del sobre */
-function abrirSobre() {
-sobreEscena.style.pointerEvents = 'none';
-sobreEscena.style.cursor = 'default';
+/* ── FASE 1 (0ms): Presión del sello ─────────────────────────── */
+sobreSello.querySelector('.lacre').style.transform = 'scale(0.88)';
 
-// 1. Fade simultáneo: texto, hint y mensaje
-[pretextoEl, mensajeEl, hintEl].forEach(el => {
-el.style.transition = 'opacity 0.32s ease';
-el.style.opacity = '0';
-el.style.pointerEvents = 'none';
-});
-
+/* ── FASE 2 (180ms): Soltar y fade del sello ─────────────────── */
 setTimeout(() => {
-// 2. Abre el sobre: solapa + tarjeta emergen
-sobre.classList.add('sobre--abierto');
+    sobreSello.querySelector('.lacre').style.transition =
+        'transform 0.5s cubic-bezier(0.34,1.4,0.64,1)';
+    sobreSello.querySelector('.lacre').style.transform = 'scale(1.06)';
 
-// 2b. Expande la sombra (simula el sobre levantándose)
-if (sobreSombra) sobreSombra.classList.add('expandida');
+    /* Fade header + tagline + mensaje */
+    [sobreHeader, sobreTagline, mensajeEl].forEach(el => {
+        if (!el) return;
+        el.style.transition = 'opacity 0.4s ease';
+        el.style.opacity    = '0';
+        el.style.pointerEvents = 'none';
+    });
+}, 180);
 
-// 2c. Lanza los pétalos desde el centro del sobre
-//     cuando la solapa termina de rotar (~280ms después)
+/* ── FASE 3 (480ms): Sello desaparece, la solapa comienza a abrirse */
 setTimeout(() => {
+    sobre.classList.add('sobre--abierto');
+
+    /* Lanzar partículas desde la posición del sello */
     dimensionarCanvas();
-    const sobreRect   = sobre.getBoundingClientRect();
-    const screenRect  = sobreScreen.getBoundingClientRect();
-    const cx = sobreRect.left - screenRect.left + sobreRect.width  / 2;
-    const cy = sobreRect.top  - screenRect.top  + sobreRect.height * 0.38;
-    lanzarPetalos(cx, cy, 42);
-}, 260);
-setTimeout(() => {
-    const sobreRect2  = sobre.getBoundingClientRect();
-    const screenRect2 = sobreScreen.getBoundingClientRect();
-    const cx2 = sobreRect2.left - screenRect2.left + sobreRect2.width  / 2;
-    const cy2 = sobreRect2.top  - screenRect2.top  + sobreRect2.height * 0.38;
-    lanzarPetalos(cx2, cy2, 22);
-    setTimeout(() => lanzarPetalos(cx2, cy2, 14), 200);
-}, 280);
+    const selRect    = sobreSello.getBoundingClientRect();
+    const screenRect = sobreScreen.getBoundingClientRect();
+    const cx = selRect.left - screenRect.left + selRect.width  / 2;
+    const cy = selRect.top  - screenRect.top  + selRect.height / 2;
+    lanzarPetalos(cx, cy, 32);
 
-// 3. Transición al contenido una vez la tarjeta terminó de subir
-setTimeout(() => {
-    sobreScreen.classList.add('cerrado');
-    contenido.setAttribute('aria-hidden', 'false');
-    contenido.classList.add('visible');
-    musicControl.removeAttribute('hidden');
-    intentarReproducirMusica();
+    /* Sombra se expande: sobre "se levanta" */
+    sobreSombra.style.transition =
+        'width 0.9s cubic-bezier(0.4,0,0.2,1) 0.2s, ' +
+        'opacity 0.9s ease 0.2s, ' +
+        'transform 0.9s ease 0.2s';
+    sobreSombra.style.width   = '92%';
+    sobreSombra.style.opacity = '0.45';
+    sobreSombra.style.transform = 'translateX(-50%) scaleY(1.3)';
+}, 480);
 
-    // Devolver foco al primer título del contenido
-    setTimeout(() => {
+/* ── FASE 4 (900ms): La tarjeta comienza a emerger ───────────── */
+setTimeout(() => {
+    /*
+     * La tarjeta sube desde dentro del sobre hasta ocupar gran parte
+     * del viewport. Usamos JS para calcular cuánto debe subir.
+     */
+    const sobreRect   = sobreWrapper.getBoundingClientRect();
+    const screenH     = window.innerHeight;
+    const tarjetaH    = sobreTarjeta.offsetHeight;
+    /* Queremos que la tarjeta quede centrada, ligeramente alta */
+    const targetTop   = screenH * 0.12; /* 12% desde el top de la pantalla */
+    const sobreBottom = sobreRect.bottom;
+    /* Cuánto sube la tarjeta: desde su posición actual (bottom del sobre) */
+    const subirPx     = sobreBottom - targetTop - tarjetaH;
+
+    sobreTarjeta.style.transition =
+        'transform 1.4s cubic-bezier(0.16,1,0.3,1), ' +
+        'box-shadow 1.4s ease';
+    sobreTarjeta.style.transform =
+        `translateX(-50%) translateY(calc(-${subirPx}px - 100% + 12px))`;
+    sobreTarjeta.style.boxShadow =
+        '0 24px 60px rgba(48,51,41,0.22), 0 8px 24px rgba(48,51,41,0.14)';
+
+    /* El sobre baja un poco (reacción contraria) */
+    sobreWrapper.style.transition =
+        'transform 1.4s cubic-bezier(0.16,1,0.3,1)';
+    sobreWrapper.style.transform = 'translateY(12px)';
+
+    /* Sombra del sobre se contrae (ya no es protagonista) */
+    sobreSombra.style.transition = 'opacity 0.8s ease 0.3s, width 0.8s ease 0.3s';
+    sobreSombra.style.opacity = '0.2';
+    sobreSombra.style.width   = '60%';
+}, 900);
+
+/* ── FASE 5 (1600ms): Textos de la tarjeta aparecen ─────────── */
+setTimeout(() => {
+    sobreTarjeta.classList.add('revelada');
+}, 1600);
+
+/* ── FASE 6 (2800ms): Transición al contenido principal ──────── */
+setTimeout(() => {
+    finalizarApertura();
+}, 2800);
+}
+
+function finalizarApertura() {
+sobreScreen.classList.add('cerrado');
+contenido.setAttribute('aria-hidden', 'false');
+contenido.classList.add('visible');
+if (musicControl) musicControl.removeAttribute('hidden');
+intentarReproducirMusica();
+
+/* Devolver el foco */
+setTimeout(() => {
     const primerFoco = contenido.querySelector('h1, h2');
     if (primerFoco) primerFoco.focus({ preventScroll: true });
-    }, 500);
-
-}, 1500); // tiempo total de la animación del sobre
-
-}, 340); // espera fin del fade
+}, 600);
 }
 
-sobreEscena.addEventListener('click', abrirSobre);
-sobreEscena.addEventListener('keydown', (e) => {
-if (e.key === 'Enter' || e.key === ' ') {
-e.preventDefault();
-abrirSobre();
-}
+/* Escuchar el sello (click, touch, teclado) */
+sobreSello.addEventListener('click', abrirSobre);
+sobreSello.addEventListener('keydown', (e) => {
+if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrirSobre(); }
+});
+
+/* Botón accesible de teclado (visible solo en foco) */
+btnAbrir.addEventListener('click', abrirSobre);
+btnAbrir.addEventListener('keydown', (e) => {
+if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrirSobre(); }
 });
 
 /* ================================================================

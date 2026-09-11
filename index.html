@@ -40,101 +40,235 @@ rel="stylesheet"
     ============================================================ -->
 <section id="sobre-screen" aria-label="Experiencia de apertura">
 
-<!-- Canvas de partículas -->
+<!-- Canvas de partículas doradas -->
 <canvas id="petalos-canvas" aria-hidden="true"></canvas>
 
-<!-- Gypsophila botánicos -->
+<!-- Textura de papel de fondo (SVG inline, cero peso) -->
+<svg class="sobre-screen__textura" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    <filter id="papel">
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+        <feColorMatrix type="saturate" values="0"/>
+        <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#papel)" opacity="0.045"/>
+</svg>
+
+<!-- Botánicos de fondo — eucalipto refinado -->
 <div class="sobre-bg-botanico" aria-hidden="true">
-    <svg class="botanico-tl" viewBox="0 0 180 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M30 255 Q38 200 28 140 Q36 100 48 60 Q55 30 62 8" stroke="#8aab7a" stroke-width="1" fill="none"/>
-    <path d="M34 210 Q55 195 72 175" stroke="#8aab7a" stroke-width="0.7" fill="none"/>
-    <path d="M32 175 Q10 158 4 135" stroke="#8aab7a" stroke-width="0.7" fill="none"/>
-    <path d="M36 145 Q58 128 78 108" stroke="#8aab7a" stroke-width="0.6" fill="none"/>
-    <path d="M40 115 Q16 100 8 78"  stroke="#8aab7a" stroke-width="0.6" fill="none"/>
-    <path d="M44 88  Q66 72  82 54"  stroke="#8aab7a" stroke-width="0.5" fill="none"/>
-    <path d="M50 60  Q28 48  18 32"  stroke="#8aab7a" stroke-width="0.5" fill="none"/>
-    <circle cx="72" cy="175" r="2.5" fill="#b5ccac" opacity="0.8"/>
-    <circle cx="68" cy="170" r="1.6" fill="#b5ccac" opacity="0.6"/>
-    <circle cx="76" cy="179" r="1.3" fill="#b5ccac" opacity="0.55"/>
-    <circle cx="4"  cy="135" r="2.2" fill="#b5ccac" opacity="0.75"/>
-    <circle cx="8"  cy="130" r="1.5" fill="#b5ccac" opacity="0.6"/>
-    <circle cx="78" cy="108" r="2.2" fill="#b5ccac" opacity="0.75"/>
-    <circle cx="8"  cy="78"  r="2"   fill="#b5ccac" opacity="0.7"/>
-    <circle cx="82" cy="54"  r="2"   fill="#b5ccac" opacity="0.7"/>
-    <circle cx="18" cy="32"  r="1.8" fill="#b5ccac" opacity="0.65"/>
-    <circle cx="62" cy="8"   r="2.5" fill="#b5ccac" opacity="0.8"/>
-    <circle cx="57" cy="5"   r="1.6" fill="#b5ccac" opacity="0.6"/>
-    <circle cx="66" cy="4"   r="1.3" fill="#b5ccac" opacity="0.55"/>
+    <svg class="botanico-tl" viewBox="0 0 200 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Rama principal -->
+        <path d="M30 310 C38 240 22 170 32 100 C42 70 55 40 62 10" stroke="#414936" stroke-width="1.1" fill="none" opacity="0.55"/>
+        <!-- Ramas secundarias con hojas -->
+        <path d="M34 265 C55 248 74 235 88 215" stroke="#414936" stroke-width="0.8" fill="none" opacity="0.38"/>
+        <ellipse cx="92" cy="212" rx="7" ry="12" fill="none" stroke="#414936" stroke-width="0.7" opacity="0.32" transform="rotate(32 92 212)"/>
+        <path d="M36 220 C20 200 10 182 6 160" stroke="#414936" stroke-width="0.7" fill="none" opacity="0.28"/>
+        <ellipse cx="5" cy="157" rx="5" ry="9" fill="none" stroke="#414936" stroke-width="0.6" opacity="0.25" transform="rotate(-20 5 157)"/>
+        <path d="M38 185 C60 165 78 148 92 128" stroke="#414936" stroke-width="0.8" fill="none" opacity="0.35"/>
+        <ellipse cx="95" cy="125" rx="6" ry="11" fill="none" stroke="#414936" stroke-width="0.7" opacity="0.3" transform="rotate(28 95 125)"/>
+        <path d="M44 145 C26 128 14 108 8 88" stroke="#414936" stroke-width="0.7" fill="none" opacity="0.25"/>
+        <ellipse cx="7" cy="85" rx="5" ry="9" fill="none" stroke="#414936" stroke-width="0.6" opacity="0.22" transform="rotate(-25 7 85)"/>
+        <!-- Hoja terminal -->
+        <ellipse cx="62" cy="9" rx="5" ry="9" fill="none" stroke="#414936" stroke-width="0.7" opacity="0.3" transform="rotate(-15 62 9)"/>
+        <!-- Dorado sutil -->
+        <path d="M36 240 C58 225 72 210 80 196" stroke="#B79A62" stroke-width="0.5" fill="none" opacity="0.18" stroke-dasharray="3 7"/>
     </svg>
-    <svg class="botanico-br" viewBox="0 0 180 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M30 255 Q38 200 28 140 Q36 100 48 60 Q55 30 62 8" stroke="#8aab7a" stroke-width="1" fill="none"/>
-    <path d="M34 210 Q55 195 72 175" stroke="#8aab7a" stroke-width="0.7" fill="none"/>
-    <path d="M32 175 Q10 158 4 135" stroke="#8aab7a" stroke-width="0.7" fill="none"/>
-    <path d="M36 145 Q58 128 78 108" stroke="#8aab7a" stroke-width="0.6" fill="none"/>
-    <path d="M40 115 Q16 100 8 78"  stroke="#8aab7a" stroke-width="0.6" fill="none"/>
-    <circle cx="72" cy="175" r="2.5" fill="#b5ccac" opacity="0.8"/>
-    <circle cx="4"  cy="135" r="2.2" fill="#b5ccac" opacity="0.75"/>
-    <circle cx="78" cy="108" r="2.2" fill="#b5ccac" opacity="0.75"/>
-    <circle cx="8"  cy="78"  r="2"   fill="#b5ccac" opacity="0.7"/>
-    <circle cx="62" cy="8"   r="2.5" fill="#b5ccac" opacity="0.8"/>
+    <svg class="botanico-br" viewBox="0 0 200 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 310 C38 240 22 170 32 100 C42 70 55 40 62 10" stroke="#414936" stroke-width="1.1" fill="none" opacity="0.55"/>
+        <path d="M34 265 C55 248 74 235 88 215" stroke="#414936" stroke-width="0.8" fill="none" opacity="0.38"/>
+        <ellipse cx="92" cy="212" rx="7" ry="12" fill="none" stroke="#414936" stroke-width="0.7" opacity="0.32" transform="rotate(32 92 212)"/>
+        <path d="M36 220 C20 200 10 182 6 160" stroke="#414936" stroke-width="0.7" fill="none" opacity="0.28"/>
+        <ellipse cx="5" cy="157" rx="5" ry="9" fill="none" stroke="#414936" stroke-width="0.6" opacity="0.25" transform="rotate(-20 5 157)"/>
+        <path d="M38 185 C60 165 78 148 92 128" stroke="#414936" stroke-width="0.8" fill="none" opacity="0.35"/>
+        <ellipse cx="95" cy="125" rx="6" ry="11" fill="none" stroke="#414936" stroke-width="0.7" opacity="0.3" transform="rotate(28 95 125)"/>
+        <ellipse cx="62" cy="9" rx="5" ry="9" fill="none" stroke="#414936" stroke-width="0.7" opacity="0.3" transform="rotate(-15 62 9)"/>
+        <path d="M36 240 C58 225 72 210 80 196" stroke="#B79A62" stroke-width="0.5" fill="none" opacity="0.18" stroke-dasharray="3 7"/>
     </svg>
 </div>
 
-<!-- Texto introductorio -->
-<p class="sobre-pretexto" id="sobre-pretexto">Tenemos algo para ti…</p>
+<!-- Cabecera -->
+<div class="sobre-header" id="sobre-header" aria-label="Mensaje de apertura">
+    <p class="sobre-pretexto" id="sobre-pretexto">TENEMOS ALGO PARA TI</p>
+    <p class="sobre-pretexto-nombres" id="sobre-pretexto-nombres">Zuhey &amp; Gino</p>
+    <p class="sobre-pretexto-fecha" id="sobre-pretexto-fecha">12 · 12 · 2026</p>
+</div>
 
-<!-- Escena del sobre — clickeable directamente -->
-<div class="sobre-escena" id="sobre-escena"
-     role="button" tabindex="0"
-     aria-label="Hacer clic para abrir la invitación"
-     style="cursor:pointer">
+<!-- Escena del sobre -->
+<div class="sobre-escena" id="sobre-escena">
 
-    <div class="sobre-sombra" id="sobre-sombra"></div>
+    <!-- Contenedor perspectiva 3D -->
+    <div class="sobre-wrapper" id="sobre-wrapper">
 
-    <div class="sobre" id="sobre">
+        <!-- Sombra proyectada -->
+        <div class="sobre-sombra" id="sobre-sombra"></div>
 
-    <div class="sobre__interior">
-        <div class="sobre__solapa-trasera"></div>
-        <div class="sobre__lado sobre__lado--izq"></div>
-        <div class="sobre__lado sobre__lado--der"></div>
-        <div class="sobre__solapa-bottom"></div>
-
-        <div class="sobre__tarjeta" id="sobre-tarjeta">
-        <div class="sobre__tarjeta-corner" aria-hidden="true"></div>
-        <p class="tarjeta__anuncio">con amor</p>
-        <p class="tarjeta__nombres">Zuhey &amp; Gino</p>
-        <p class="tarjeta__fecha">12 · 12 · 2026</p>
+        <!-- Tarjeta de invitación que emerge -->
+        <div class="sobre__tarjeta" id="sobre-tarjeta" aria-hidden="true">
+            <!-- Eucalipto sutil detrás de la tarjeta -->
+            <div class="tarjeta__botanico" aria-hidden="true">
+                <svg viewBox="0 0 120 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M60 175 C64 130 56 90 60 50 C62 35 66 20 68 5" stroke="#858A72" stroke-width="0.9" fill="none" opacity="0.4"/>
+                    <path d="M61 148 C75 138 84 126 88 114" stroke="#858A72" stroke-width="0.7" fill="none" opacity="0.3"/>
+                    <ellipse cx="90" cy="112" rx="5" ry="9" fill="#858A72" fill-opacity="0.12" stroke="#858A72" stroke-width="0.6" opacity="0.3" transform="rotate(30 90 112)"/>
+                    <path d="M61 120 C48 110 40 98 36 85" stroke="#858A72" stroke-width="0.7" fill="none" opacity="0.3"/>
+                    <ellipse cx="35" cy="83" rx="4" ry="8" fill="#858A72" fill-opacity="0.12" stroke="#858A72" stroke-width="0.6" opacity="0.28" transform="rotate(-22 35 83)"/>
+                    <path d="M62 92 C76 82 84 70 87 57" stroke="#858A72" stroke-width="0.7" fill="none" opacity="0.28"/>
+                    <ellipse cx="88" cy="55" rx="4" ry="8" fill="#858A72" fill-opacity="0.12" stroke="#858A72" stroke-width="0.6" opacity="0.26" transform="rotate(25 88 55)"/>
+                    <path d="M63 65 C50 55 42 44 38 32" stroke="#858A72" stroke-width="0.6" fill="none" opacity="0.25"/>
+                    <ellipse cx="37" cy="30" rx="4" ry="7" fill="#858A72" fill-opacity="0.1" stroke="#858A72" stroke-width="0.5" opacity="0.24" transform="rotate(-18 37 30)"/>
+                </svg>
+            </div>
+            <!-- Borde interior dorado -->
+            <div class="tarjeta__marco" aria-hidden="true"></div>
+            <!-- Esquinas decorativas -->
+            <div class="tarjeta__esquina tarjeta__esquina--tl" aria-hidden="true"></div>
+            <div class="tarjeta__esquina tarjeta__esquina--tr" aria-hidden="true"></div>
+            <div class="tarjeta__esquina tarjeta__esquina--bl" aria-hidden="true"></div>
+            <div class="tarjeta__esquina tarjeta__esquina--br" aria-hidden="true"></div>
+            <!-- Contenido -->
+            <div class="tarjeta__contenido">
+                <p class="tarjeta__eyebrow">ZUHEY &amp; GINO</p>
+                <p class="tarjeta__titulo">Nos casamos</p>
+                <div class="tarjeta__divisor" aria-hidden="true"></div>
+                <p class="tarjeta__fecha">12 · 12 · 2026</p>
+                <p class="tarjeta__lugar">Lima, Perú</p>
+            </div>
+            <!-- Indicación de scroll -->
+            <div class="tarjeta__scroll-hint" id="tarjeta-scroll-hint" aria-label="Continúa hacia abajo">
+                <span class="scroll-hint__texto">Desliza para continuar</span>
+                <svg class="scroll-hint__flecha" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <line x1="8" y1="0" x2="8" y2="18" stroke="#B79A62" stroke-width="0.8" opacity="0.7"/>
+                    <path d="M3 13 L8 19 L13 13" stroke="#B79A62" stroke-width="0.8" fill="none" opacity="0.7"/>
+                </svg>
+            </div>
         </div>
-    </div>
 
-    <div class="sobre__solapa-top-wrap" id="sobre-solapa-wrap">
-        <div class="sobre__solapa-top">
-        <div class="sobre__pliegue" aria-hidden="true"></div>
-        </div>
-    </div>
+        <!-- Cuerpo del sobre -->
+        <div class="sobre" id="sobre">
 
-    <!-- Cinta vertical -->
-    <div class="sobre__cinta" aria-hidden="true"></div>
+            <!-- Filtro SVG para textura del sobre (reutilizable) -->
+            <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+                <defs>
+                    <filter id="textura-papel-sobre" x="0" y="0" width="100%" height="100%">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.9 0.7" numOctaves="4" seed="3" stitchTiles="stitch" result="noise"/>
+                        <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise"/>
+                        <feBlend in="SourceGraphic" in2="grayNoise" mode="multiply" result="blended"/>
+                        <feComponentTransfer in="blended">
+                            <feFuncA type="linear" slope="1"/>
+                        </feComponentTransfer>
+                    </filter>
+                    <!-- Gradiente para iluminación lateral del sobre -->
+                    <linearGradient id="grad-sobre-luz" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%"   stop-color="#3a4232" stop-opacity="0.6"/>
+                        <stop offset="30%"  stop-color="#4d5440" stop-opacity="0"/>
+                        <stop offset="70%"  stop-color="#4d5440" stop-opacity="0"/>
+                        <stop offset="100%" stop-color="#2e3328" stop-opacity="0.5"/>
+                    </linearGradient>
+                    <!-- Gradiente para la solapa superior -->
+                    <linearGradient id="grad-solapa" x1="50%" y1="0%" x2="50%" y2="100%">
+                        <stop offset="0%"   stop-color="#4a5240"/>
+                        <stop offset="100%" stop-color="#3a4133"/>
+                    </linearGradient>
+                </defs>
+            </svg>
 
-    <!-- Sello de lacre -->
-    <div class="sobre__sello" id="sobre-sello" aria-label="Sello de lacre Z y G">
-        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" class="sobre__sello-svg">
-        <path d="M32 4 C36 3,40 5,43 4 C47 3,50 6,53 8 C56 11,58 14,59 18 C61 22,61 26,60 30 C59 34,61 38,59 42 C57 46,54 49,50 51 C46 53,42 55,38 56 C34 57,30 57,26 56 C22 55,18 53,15 51 C11 48,8 45,6 41 C4 37,3 33,4 29 C4 25,3 21,5 17 C7 13,10 10,14 8 C18 5,22 3,26 4 C28 3,30 4,32 4Z" fill="#8B5E2E"/>
-        <path d="M32 8 C35 7,38 9,41 8 C44 7,47 10,49 12 C51 15,53 18,53 22 C53 26,54 30,52 33 C50 36,52 40,50 43 C48 46,45 48,41 50 C37 51,33 52,29 51 C25 50,21 48,18 46 C15 43,13 40,12 36 C11 32,11 28,13 25 C14 21,13 17,15 14 C17 11,20 9,24 8 C27 7,30 8,32 8Z" fill="#A0712E"/>
-        <ellipse cx="23" cy="20" rx="5" ry="3" fill="#C4913E" opacity="0.4" transform="rotate(-30 23 20)"/>
-        <circle cx="32" cy="32" r="15" stroke="#6B4820" stroke-width="0.8" opacity="0.5" fill="none"/>
-        <text x="32" y="37" text-anchor="middle" font-family="'Great Vibes', cursive" font-size="15" fill="#F5E6C8" opacity="0.95" letter-spacing="1">Z &amp; G</text>
-        </svg>
-    </div>
+            <!-- Interior visible (solapas laterales + base) -->
+            <div class="sobre__interior">
+                <!-- Solapa trasera-fondo -->
+                <div class="sobre__solapa-trasera"></div>
+                <!-- Lados laterales con degradado de luz -->
+                <div class="sobre__lado sobre__lado--izq"></div>
+                <div class="sobre__lado sobre__lado--der"></div>
+                <!-- Solapa inferior -->
+                <div class="sobre__solapa-bottom"></div>
+                <!-- Capa de iluminación lateral (SVG rect sobre todo el interior) -->
+                <div class="sobre__luz-interior" aria-hidden="true"></div>
+            </div>
 
-    </div><!-- /sobre -->
+            <!-- Solapa superior — se abre en 3D -->
+            <div class="sobre__solapa-top-wrap" id="sobre-solapa-wrap">
+                <div class="sobre__solapa-top">
+                    <!-- Pliegue -->
+                    <div class="sobre__pliegue" aria-hidden="true"></div>
+                    <!-- Textura aplicada vía clase (filter CSS) -->
+                </div>
+                <!-- Sombra de la solapa cuando está cerrada -->
+                <div class="sobre__solapa-sombra" aria-hidden="true"></div>
+            </div>
+
+            <!-- SELLO DE LACRE — activa la apertura -->
+            <button
+                class="sobre__sello"
+                id="sobre-sello"
+                aria-label="Toca el sello para abrir la invitación"
+                type="button"
+            >
+                <!-- Capas del lacre: fondo, relieve, luz, texto -->
+                <div class="lacre" aria-hidden="true">
+                    <!-- Capa base del lacre (color sólido) -->
+                    <div class="lacre__base"></div>
+                    <!-- Textura irregular del lacre via SVG filter -->
+                    <svg class="lacre__textura-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <defs>
+                            <filter id="lacre-rugoso">
+                                <feTurbulence type="turbulence" baseFrequency="0.07 0.06" numOctaves="3" seed="7" result="noise"/>
+                                <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+                            </filter>
+                            <!-- Luz especular del lacre -->
+                            <radialGradient id="lacre-luz" cx="38%" cy="32%" r="55%">
+                                <stop offset="0%"   stop-color="#d4af6a" stop-opacity="0.75"/>
+                                <stop offset="45%"  stop-color="#b8913a" stop-opacity="0.2"/>
+                                <stop offset="100%" stop-color="#7a5e1a" stop-opacity="0"/>
+                            </radialGradient>
+                            <!-- Sombra perimetral del lacre -->
+                            <radialGradient id="lacre-sombra" cx="50%" cy="55%" r="50%">
+                                <stop offset="65%"  stop-color="transparent"/>
+                                <stop offset="100%" stop-color="rgba(0,0,0,0.35)"/>
+                            </radialGradient>
+                            <!-- Círculo recortado para el badge -->
+                            <clipPath id="lacre-clip">
+                                <circle cx="40" cy="40" r="36"/>
+                            </clipPath>
+                        </defs>
+                        <!-- Forma del lacre deformada (irregular) -->
+                        <circle cx="40" cy="40" r="34" fill="#414936" filter="url(#lacre-rugoso)" clip-path="url(#lacre-clip)"/>
+                        <!-- Borde delgado ligeramente más claro -->
+                        <circle cx="40" cy="40" r="33" fill="none" stroke="#5a6350" stroke-width="1.2" opacity="0.5" filter="url(#lacre-rugoso)"/>
+                        <!-- Luz especular -->
+                        <circle cx="40" cy="40" r="36" fill="url(#lacre-luz)"/>
+                        <!-- Sombra perimetral -->
+                        <circle cx="40" cy="40" r="36" fill="url(#lacre-sombra)"/>
+                    </svg>
+                    <!-- Anillo decorativo exterior -->
+                    <svg class="lacre__anillo-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <circle cx="40" cy="40" r="30" fill="none" stroke="#B79A62" stroke-width="0.6" opacity="0.55" stroke-dasharray="2 4"/>
+                        <circle cx="40" cy="40" r="26" fill="none" stroke="#B79A62" stroke-width="0.4" opacity="0.35"/>
+                        <!-- Puntos en los cardinales -->
+                        <circle cx="40" cy="10" r="1.3" fill="#B79A62" opacity="0.5"/>
+                        <circle cx="40" cy="70" r="1.3" fill="#B79A62" opacity="0.5"/>
+                        <circle cx="10" cy="40" r="1.3" fill="#B79A62" opacity="0.5"/>
+                        <circle cx="70" cy="40" r="1.3" fill="#B79A62" opacity="0.5"/>
+                    </svg>
+                    <!-- Monograma -->
+                    <span class="lacre__monograma">Z &amp; G</span>
+                </div>
+                <!-- Tooltip touch -->
+                <span class="sobre__sello-hint" aria-hidden="true">Toca el sello para abrir</span>
+            </button>
+
+        </div><!-- /sobre -->
+    </div><!-- /sobre-wrapper -->
 </div><!-- /sobre-escena -->
 
-<!-- Hint parpadeante -->
-<p class="sobre-hint" id="sobre-hint" aria-hidden="true">toca para abrir</p>
+<!-- Firma inferior -->
+<p class="sobre-tagline" id="sobre-tagline">Finalmente, para siempre.</p>
 
-<!-- Mensaje personalizado al invitado -->
+<!-- Mensaje personalizado al invitado (inyectado por JS) -->
 <p class="sobre-mensaje-invitado" id="sobre-mensaje-invitado"></p>
+
+<!-- Botón accesible alternativo (teclado) oculto visualmente -->
+<button class="sobre-btn" id="btn-abrir-sobre" aria-label="Abrir la invitación">
+    Abrir invitación
+</button>
 
 </section><!-- /sobre-screen -->
 
