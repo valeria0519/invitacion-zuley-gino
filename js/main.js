@@ -78,7 +78,8 @@ const CODIGO_INVITADO = urlParams.get('codigo') || '';
 const sobreScreen  = document.getElementById('sobre-screen');
 const sobre        = document.getElementById('sobre');
 const sobreSombra  = document.getElementById('sobre-sombra');
-const btnAbrir     = document.getElementById('btn-abrir-sobre');
+const sobreEscena  = document.getElementById('sobre-escena');
+const hintEl       = document.getElementById('sobre-hint');
 const contenido    = document.getElementById('contenido-principal');
 const musicControl = document.getElementById('music-control');
 const mensajeEl    = document.getElementById('sobre-mensaje-invitado');
@@ -93,7 +94,7 @@ let petalosAnimando = false;
 let petalos         = [];
 
 /* Colores dorados de la paleta */
-const PETAL_COLORS = ['#b8913a', '#d4ad68', '#8f6e22', '#d9c07a'];
+const PETAL_COLORS = ['#dde8d8','#f0f4ec','#c8cdb8','#b8913a','#d4ad68','#e8efe4','#f5e6c0'];
 
 /* Dimensionar el canvas al tamaño real de la pantalla */
 function dimensionarCanvas() {
@@ -222,10 +223,11 @@ inputNumAcomp.max = MAX_ACOMPANANTES;
 
 /** Secuencia de apertura del sobre */
 function abrirSobre() {
-btnAbrir.disabled = true;
+sobreEscena.style.pointerEvents = 'none';
+sobreEscena.style.cursor = 'default';
 
-// 1. Fade simultáneo: texto, mensaje y botón
-[pretextoEl, mensajeEl, btnAbrir].forEach(el => {
+// 1. Fade simultáneo: texto, hint y mensaje
+[pretextoEl, mensajeEl, hintEl].forEach(el => {
 el.style.transition = 'opacity 0.32s ease';
 el.style.opacity = '0';
 el.style.pointerEvents = 'none';
@@ -246,7 +248,15 @@ setTimeout(() => {
     const screenRect  = sobreScreen.getBoundingClientRect();
     const cx = sobreRect.left - screenRect.left + sobreRect.width  / 2;
     const cy = sobreRect.top  - screenRect.top  + sobreRect.height * 0.38;
-    lanzarPetalos(cx, cy, 28);
+    lanzarPetalos(cx, cy, 42);
+}, 260);
+setTimeout(() => {
+    const sobreRect2  = sobre.getBoundingClientRect();
+    const screenRect2 = sobreScreen.getBoundingClientRect();
+    const cx2 = sobreRect2.left - screenRect2.left + sobreRect2.width  / 2;
+    const cy2 = sobreRect2.top  - screenRect2.top  + sobreRect2.height * 0.38;
+    lanzarPetalos(cx2, cy2, 22);
+    setTimeout(() => lanzarPetalos(cx2, cy2, 14), 200);
 }, 280);
 
 // 3. Transición al contenido una vez la tarjeta terminó de subir
@@ -268,8 +278,8 @@ setTimeout(() => {
 }, 340); // espera fin del fade
 }
 
-btnAbrir.addEventListener('click', abrirSobre);
-btnAbrir.addEventListener('keydown', (e) => {
+sobreEscena.addEventListener('click', abrirSobre);
+sobreEscena.addEventListener('keydown', (e) => {
 if (e.key === 'Enter' || e.key === ' ') {
 e.preventDefault();
 abrirSobre();

@@ -108,20 +108,23 @@ margin-top: var(--espacio-xl);
 }
 
 /* ================================================================
-EXPERIENCIA DE APERTURA — SOBRE (v2 — diseño mejorado)
+EXPERIENCIA DE APERTURA — SOBRE v3
+Fondo marfil · sobre verde oliva · cinta gris perla · lacre bronce
+SÓLO modifica #sobre-screen y sus hijos. Todo lo demás intacto.
 ================================================================ */
+
 #sobre-screen {
 position: fixed;
 inset: 0;
 z-index: 1000;
-background: var(--c-verde);
+background: #f0ece3;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-gap: 1.6rem;
+gap: 1.4rem;
 overflow: hidden;
-transition: opacity 0.8s ease 0.2s, visibility 0.8s ease 0.2s;
+transition: opacity 0.9s ease 0.2s, visibility 0.9s ease 0.2s;
 }
 
 #sobre-screen.cerrado {
@@ -130,155 +133,160 @@ visibility: hidden;
 pointer-events: none;
 }
 
-/* Canvas de partículas — corre sobre el fondo verde */
 #petalos-canvas {
 position: absolute;
 inset: 0;
 width: 100%;
 height: 100%;
 pointer-events: none;
-z-index: 3; /* encima de botánicos, debajo del sobre */
+z-index: 3;
 }
 
-/* Botánicos de fondo */
-.sobre-bg-botanico { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-.botanico-tl { position: absolute; top: -8px; left: -8px; width: min(220px, 48vw); height: auto; }
-.botanico-br { position: absolute; bottom: -8px; right: -8px; width: min(220px, 48vw); height: auto; transform: rotate(180deg); }
+/* Gypsophila botánicos */
+.sobre-bg-botanico { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 1; }
+.botanico-tl {
+position: absolute;
+top: -4px; left: -4px;
+width: min(200px, 44vw);
+height: auto;
+opacity: 0.5;
+}
+.botanico-br {
+position: absolute;
+bottom: -4px; right: -4px;
+width: min(200px, 44vw);
+height: auto;
+transform: rotate(180deg);
+opacity: 0.5;
+}
 
 /* Texto superior */
 .sobre-pretexto {
 font-family: var(--f-serif);
 font-style: italic;
-font-size: clamp(0.85rem, 2.8vw, 1rem);
-color: rgba(240,233,228,0.5);
-letter-spacing: 0.07em;
+font-size: clamp(0.82rem, 2.6vw, 0.95rem);
+color: rgba(61, 74, 53, 0.45);
+letter-spacing: 0.09em;
 text-align: center;
 position: relative;
 z-index: 4;
 transition: opacity 0.35s ease;
 }
 
-/* Escena del sobre */
+/* Escena */
 .sobre-escena {
 position: relative;
-width: min(300px, 82vw);
-height: min(202px, 55vw);
-perspective: 700px;
+width: min(320px, 86vw);
+height: min(224px, 60vw);
+perspective: 800px;
 z-index: 4;
 }
 
 /* Sombra proyectada */
 .sobre-sombra {
 position: absolute;
-bottom: -12px;
+bottom: -14px;
 left: 50%;
 transform: translateX(-50%);
-width: 82%;
-height: 14px;
-background: rgba(0,0,0,0.2);
-filter: blur(9px);
+width: 80%;
+height: 16px;
+background: rgba(0,0,0,0.13);
+filter: blur(11px);
 border-radius: 50%;
-transition: width 0.6s ease, opacity 0.6s ease;
+transition: width 0.65s ease, opacity 0.65s ease;
 }
 
-/* Cuerpo del sobre */
+/* Cuerpo del sobre — verde oliva */
 .sobre {
 position: absolute;
 inset: 0;
-background: var(--c-marfil);
-border-radius: 2px;
+background: #4a5e3a;
+border-radius: 1px;
 box-shadow:
-0 10px 36px rgba(0,0,0,0.26),
-0 2px 8px rgba(0,0,0,0.14);
+  0 14px 44px rgba(0,0,0,0.22),
+  0 3px 10px rgba(0,0,0,0.12),
+  inset 0 0 0 1px rgba(255,255,255,0.07);
 overflow: visible;
 }
 
-/* Interior (contiene solapas + tarjeta, con overflow:hidden) */
 .sobre__interior {
 position: absolute;
 inset: 0;
 overflow: hidden;
-border-radius: 2px;
+border-radius: 1px;
 }
 
-/* Solapa trasera V */
+/* Solapas en tonos de verde */
 .sobre__solapa-trasera {
 position: absolute;
 bottom: 0; left: 0; right: 0;
 height: 55%;
-background: #dde3d5;
+background: #3a4d2c;
 clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
 z-index: 0;
 }
 
-/* Solapas laterales */
 .sobre__lado {
 position: absolute;
 top: 0; bottom: 0;
 width: 54%;
-background: #e2e8d8;
+background: #415535;
 z-index: 1;
 }
 .sobre__lado--izq { left: 0;  clip-path: polygon(0 0, 100% 47%, 0 100%); }
 .sobre__lado--der { right: 0; clip-path: polygon(0 47%, 100% 0, 100% 100%); }
 
-/* Solapa inferior */
 .sobre__solapa-bottom {
 position: absolute;
 bottom: 0; left: 0; right: 0;
 height: 52%;
-background: #d8dece;
+background: #364a28;
 clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
 z-index: 2;
-border-top: 1px solid rgba(201,168,76,0.07);
 }
 
-/* Tarjeta interior */
+/* Tarjeta interior — marfil */
 .sobre__tarjeta {
 position: absolute;
 bottom: 8px;
 left: 50%;
 transform: translateX(-50%) translateY(0);
-width: 78%;
-background: var(--c-marfil);
-border: 1px solid rgba(201,168,76,0.28);
+width: 76%;
+background: #f4f0e6;
+border: 1px solid rgba(201,168,76,0.3);
 padding: 14px 12px 12px;
 text-align: center;
 z-index: 4;
-transition: transform 0.88s cubic-bezier(0.34, 1.12, 0.64, 1) 0.55s;
+transition: transform 0.9s cubic-bezier(0.34, 1.1, 0.64, 1) 0.6s;
 }
 
-/* Doble borde interior */
 .sobre__tarjeta::before {
 content: '';
 position: absolute;
 inset: 4px;
-border: 1px solid rgba(201,168,76,0.14);
+border: 1px solid rgba(201,168,76,0.15);
 pointer-events: none;
 }
 
-/* Esquina dorada superior izquierda */
 .sobre__tarjeta::after {
 content: '';
 position: absolute;
 top: 8px; left: 8px;
 width: 13px; height: 13px;
-border-top: 1px solid rgba(201,168,76,0.42);
-border-left: 1px solid rgba(201,168,76,0.42);
+border-top: 1px solid rgba(201,168,76,0.45);
+border-left: 1px solid rgba(201,168,76,0.45);
 }
 
-/* Esquina dorada inferior derecha */
 .sobre__tarjeta-corner {
 position: absolute;
 bottom: 8px; right: 8px;
 width: 13px; height: 13px;
-border-bottom: 1px solid rgba(201,168,76,0.42);
-border-right: 1px solid rgba(201,168,76,0.42);
+border-bottom: 1px solid rgba(201,168,76,0.45);
+border-right: 1px solid rgba(201,168,76,0.45);
 }
 
-/* Tarjeta emergida al abrirse */
 .sobre--abierto .sobre__tarjeta {
-transform: translateX(-50%) translateY(-50%);
+transform: translateX(-50%) translateY(-52%);
 }
 
 /* Textos de la tarjeta */
@@ -313,7 +321,7 @@ opacity: 0.78;
 display: block;
 }
 
-/* Solapa superior — wrapper con transform-origin en el borde */
+/* Solapa superior */
 .sobre__solapa-top-wrap {
 position: absolute;
 top: 0; left: 0; right: 0;
@@ -328,47 +336,76 @@ transform-style: preserve-3d;
 .sobre__solapa-top {
 position: absolute;
 inset: 0;
-background: #eceae3;
+background: #526644;
 clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
 }
 
-/* Línea de pliegue en el borde inferior de la solapa */
 .sobre__pliegue {
 position: absolute;
 bottom: 0; left: 0; right: 0;
 height: 1px;
-background: linear-gradient(to right, transparent, rgba(201,168,76,0.18) 35%, rgba(201,168,76,0.18) 65%, transparent);
+background: linear-gradient(to right, transparent, rgba(255,255,255,0.12) 35%, rgba(255,255,255,0.12) 65%, transparent);
 }
 
-/* Apertura: solapa rota hacia atrás */
 .sobre--abierto .sobre__solapa-top-wrap {
 transform: rotateX(-175deg);
 }
 
-/* Sombra se expande al abrir */
-.sobre--abierto ~ .sobre-sombra {
-width: 96%;
-opacity: 0.55;
+/* Cinta vertical gris perla */
+.sobre__cinta {
+position: absolute;
+top: 0; bottom: 0;
+left: 50%;
+transform: translateX(-50%);
+width: 28px;
+background: rgba(220, 226, 222, 0.65);
+z-index: 5;
+border-left:  1px solid rgba(255,255,255,0.4);
+border-right: 1px solid rgba(255,255,255,0.4);
+transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
+pointer-events: none;
+}
+.sobre__cinta::before,
+.sobre__cinta::after {
+content: '';
+position: absolute;
+top: 0; bottom: 0;
+width: 1px;
+background: rgba(255,255,255,0.45);
+}
+.sobre__cinta::before { left: 8px; }
+.sobre__cinta::after  { right: 8px; }
+
+.sobre--abierto .sobre__cinta {
+opacity: 0;
+transform: translateX(-50%) scaleY(0.6);
+transform-origin: bottom center;
 }
 
-/* Sello */
+/* Sello de lacre bronce */
 .sobre__sello {
 position: absolute;
 top: 50%;
 left: 50%;
 transform: translate(-50%, -46%);
-z-index: 7;
-width: 56px;
-height: 56px;
-transition: opacity 0.35s ease, transform 0.35s ease;
+z-index: 8;
+width: 62px;
+height: 62px;
+transition: opacity 0.38s ease 0.05s, transform 0.38s ease 0.05s;
+animation: sello-pulso 3.2s ease-in-out infinite;
+}
+
+@keyframes sello-pulso {
+0%, 100% { filter: drop-shadow(0 2px 8px rgba(0,0,0,0.25)); }
+50%       { filter: drop-shadow(0 4px 16px rgba(184,145,58,0.45)); }
 }
 
 .sobre__sello-svg { width: 100%; height: 100%; }
 
-/* Sello desaparece al abrirse */
 .sobre--abierto .sobre__sello {
 opacity: 0;
-transform: translate(-50%, -46%) scale(0.72);
+transform: translate(-50%, -46%) scale(0.6);
+animation: none;
 }
 
 /* Mensaje al invitado */
@@ -376,7 +413,7 @@ transform: translate(-50%, -46%) scale(0.72);
 font-family: var(--f-serif);
 font-style: italic;
 font-size: clamp(0.88rem, 2.8vw, 1.02rem);
-color: rgba(240,233,228,0.62);
+color: rgba(61, 74, 53, 0.55);
 text-align: center;
 max-width: 290px;
 line-height: 1.65;
@@ -387,39 +424,25 @@ z-index: 4;
 transition: opacity 0.35s ease;
 }
 
-/* Botón del sobre */
-.sobre-btn {
+/* Hint parpadeante */
+.sobre-hint {
 font-family: var(--f-sans);
-font-size: 0.68rem;
-font-weight: 500;
-letter-spacing: 0.26em;
+font-size: 0.58rem;
+font-weight: 300;
+letter-spacing: 0.28em;
 text-transform: uppercase;
-color: var(--c-verde);
-background: var(--c-dorado);
-padding: 1rem 2.5rem;
-border: none;
-cursor: pointer;
+color: rgba(61, 74, 53, 0.38);
+text-align: center;
 position: relative;
-z-index: 2;
-overflow: hidden;
-transition: transform var(--trans);
 z-index: 4;
+transition: opacity 0.35s ease;
+animation: parpadeo-hint 2.8s ease-in-out 2s infinite;
 }
 
-.sobre-btn::before {
-content: '';
-position: absolute;
-inset: 0;
-background: var(--c-dorado-claro);
-transform: scaleX(0);
-transform-origin: left;
-transition: transform 0.4s ease;
+@keyframes parpadeo-hint {
+0%, 100% { opacity: 0.38; }
+50%       { opacity: 0.8; }
 }
-
-.sobre-btn:hover::before,
-.sobre-btn:focus-visible::before { transform: scaleX(1); }
-.sobre-btn:hover, .sobre-btn:focus-visible { transform: translateY(-1px); outline: none; }
-.sobre-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
 /* ================================================================
 CONTENIDO PRINCIPAL
@@ -454,9 +477,10 @@ transition: opacity 0.75s ease, transform 0.75s ease;
 #sobre-screen, #contenido-principal { transition: none; }
 .sobre__solapa-top-wrap { transition: none; }
 .sobre__tarjeta { transition: none; }
-.sobre__sello { transition: none; }
+.sobre__sello { transition: none; animation: none; }
+.sobre__cinta { transition: none; }
 .sobre-pretexto, .sobre-mensaje-invitado { transition: none; }
-.sobre-btn::before { transition: none; }
+.sobre-hint { animation: none; opacity: 0.6; }
 }
 
 /* ================================================================

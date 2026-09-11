@@ -40,53 +40,66 @@ rel="stylesheet"
     ============================================================ -->
 <section id="sobre-screen" aria-label="Experiencia de apertura">
 
-<!-- Canvas de partículas doradas (se activa al abrir el sobre) -->
+<!-- Canvas de partículas -->
 <canvas id="petalos-canvas" aria-hidden="true"></canvas>
 
-<!-- Botánicos de fondo -->
+<!-- Gypsophila botánicos -->
 <div class="sobre-bg-botanico" aria-hidden="true">
-    <svg class="botanico-tl" viewBox="0 0 160 230" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 220 Q36 150 22 80 Q42 64 56 12" stroke="#b8913a" stroke-width="0.9" fill="none" opacity="0.38"/>
-    <path d="M26 162 Q52 144 70 118" stroke="#b8913a" stroke-width="0.7" fill="none" opacity="0.24"/>
-    <path d="M30 195 Q14 170 4 145" stroke="#b8913a" stroke-width="0.7" fill="none" opacity="0.2"/>
-    <ellipse cx="56" cy="11" rx="6" ry="11" stroke="#b8913a" stroke-width="0.7" fill="none" opacity="0.28" transform="rotate(-18 56 11)"/>
-    <ellipse cx="70" cy="117" rx="5" ry="9" stroke="#b8913a" stroke-width="0.7" fill="none" opacity="0.2" transform="rotate(26 70 117)"/>
-    <path d="M46 118 Q72 94 90 66" stroke="#b8913a" stroke-width="0.5" fill="none" opacity="0.16" stroke-dasharray="2 5"/>
+    <svg class="botanico-tl" viewBox="0 0 180 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M30 255 Q38 200 28 140 Q36 100 48 60 Q55 30 62 8" stroke="#8aab7a" stroke-width="1" fill="none"/>
+    <path d="M34 210 Q55 195 72 175" stroke="#8aab7a" stroke-width="0.7" fill="none"/>
+    <path d="M32 175 Q10 158 4 135" stroke="#8aab7a" stroke-width="0.7" fill="none"/>
+    <path d="M36 145 Q58 128 78 108" stroke="#8aab7a" stroke-width="0.6" fill="none"/>
+    <path d="M40 115 Q16 100 8 78"  stroke="#8aab7a" stroke-width="0.6" fill="none"/>
+    <path d="M44 88  Q66 72  82 54"  stroke="#8aab7a" stroke-width="0.5" fill="none"/>
+    <path d="M50 60  Q28 48  18 32"  stroke="#8aab7a" stroke-width="0.5" fill="none"/>
+    <circle cx="72" cy="175" r="2.5" fill="#b5ccac" opacity="0.8"/>
+    <circle cx="68" cy="170" r="1.6" fill="#b5ccac" opacity="0.6"/>
+    <circle cx="76" cy="179" r="1.3" fill="#b5ccac" opacity="0.55"/>
+    <circle cx="4"  cy="135" r="2.2" fill="#b5ccac" opacity="0.75"/>
+    <circle cx="8"  cy="130" r="1.5" fill="#b5ccac" opacity="0.6"/>
+    <circle cx="78" cy="108" r="2.2" fill="#b5ccac" opacity="0.75"/>
+    <circle cx="8"  cy="78"  r="2"   fill="#b5ccac" opacity="0.7"/>
+    <circle cx="82" cy="54"  r="2"   fill="#b5ccac" opacity="0.7"/>
+    <circle cx="18" cy="32"  r="1.8" fill="#b5ccac" opacity="0.65"/>
+    <circle cx="62" cy="8"   r="2.5" fill="#b5ccac" opacity="0.8"/>
+    <circle cx="57" cy="5"   r="1.6" fill="#b5ccac" opacity="0.6"/>
+    <circle cx="66" cy="4"   r="1.3" fill="#b5ccac" opacity="0.55"/>
     </svg>
-    <svg class="botanico-br" viewBox="0 0 160 230" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 220 Q36 150 22 80 Q42 64 56 12" stroke="#b8913a" stroke-width="0.9" fill="none" opacity="0.38"/>
-    <path d="M26 162 Q52 144 70 118" stroke="#b8913a" stroke-width="0.7" fill="none" opacity="0.24"/>
-    <path d="M30 195 Q14 170 4 145" stroke="#b8913a" stroke-width="0.7" fill="none" opacity="0.2"/>
-    <ellipse cx="56" cy="11" rx="6" ry="11" stroke="#b8913a" stroke-width="0.7" fill="none" opacity="0.28" transform="rotate(-18 56 11)"/>
-    <ellipse cx="70" cy="117" rx="5" ry="9" stroke="#b8913a" stroke-width="0.7" fill="none" opacity="0.2" transform="rotate(26 70 117)"/>
+    <svg class="botanico-br" viewBox="0 0 180 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M30 255 Q38 200 28 140 Q36 100 48 60 Q55 30 62 8" stroke="#8aab7a" stroke-width="1" fill="none"/>
+    <path d="M34 210 Q55 195 72 175" stroke="#8aab7a" stroke-width="0.7" fill="none"/>
+    <path d="M32 175 Q10 158 4 135" stroke="#8aab7a" stroke-width="0.7" fill="none"/>
+    <path d="M36 145 Q58 128 78 108" stroke="#8aab7a" stroke-width="0.6" fill="none"/>
+    <path d="M40 115 Q16 100 8 78"  stroke="#8aab7a" stroke-width="0.6" fill="none"/>
+    <circle cx="72" cy="175" r="2.5" fill="#b5ccac" opacity="0.8"/>
+    <circle cx="4"  cy="135" r="2.2" fill="#b5ccac" opacity="0.75"/>
+    <circle cx="78" cy="108" r="2.2" fill="#b5ccac" opacity="0.75"/>
+    <circle cx="8"  cy="78"  r="2"   fill="#b5ccac" opacity="0.7"/>
+    <circle cx="62" cy="8"   r="2.5" fill="#b5ccac" opacity="0.8"/>
     </svg>
 </div>
 
 <!-- Texto introductorio -->
 <p class="sobre-pretexto" id="sobre-pretexto">Tenemos algo para ti…</p>
 
-<!-- Escena del sobre -->
-<div class="sobre-escena" id="sobre-escena" aria-hidden="true">
+<!-- Escena del sobre — clickeable directamente -->
+<div class="sobre-escena" id="sobre-escena"
+     role="button" tabindex="0"
+     aria-label="Hacer clic para abrir la invitación"
+     style="cursor:pointer">
 
-    <!-- Sombra proyectada -->
     <div class="sobre-sombra" id="sobre-sombra"></div>
 
-    <!-- Cuerpo del sobre -->
     <div class="sobre" id="sobre">
 
-    <!-- Interior (base con solapas) -->
     <div class="sobre__interior">
-        <!-- Solapa trasera V -->
         <div class="sobre__solapa-trasera"></div>
-        <!-- Lados laterales -->
         <div class="sobre__lado sobre__lado--izq"></div>
         <div class="sobre__lado sobre__lado--der"></div>
-        <!-- Base inferior -->
         <div class="sobre__solapa-bottom"></div>
 
-        <!-- Tarjeta que emerge desde el interior -->
         <div class="sobre__tarjeta" id="sobre-tarjeta">
-        <!-- Esquina decorativa inferior derecha -->
         <div class="sobre__tarjeta-corner" aria-hidden="true"></div>
         <p class="tarjeta__anuncio">con amor</p>
         <p class="tarjeta__nombres">Zuhey &amp; Gino</p>
@@ -94,41 +107,34 @@ rel="stylesheet"
         </div>
     </div>
 
-    <!-- Solapa superior (se dobla al abrirse) -->
     <div class="sobre__solapa-top-wrap" id="sobre-solapa-wrap">
         <div class="sobre__solapa-top">
         <div class="sobre__pliegue" aria-hidden="true"></div>
         </div>
     </div>
 
-    <!-- Sello con iniciales -->
-    <div class="sobre__sello" id="sobre-sello" aria-label="Sello con iniciales Z y G">
-        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" class="sobre__sello-svg">
-        <circle cx="28" cy="28" r="24" stroke="#b8913a" stroke-width="0.7" opacity="0.55"/>
-        <circle cx="28" cy="28" r="19" stroke="#b8913a" stroke-width="0.5" opacity="0.4"/>
-        <!-- Marcas de lacre en los cuatro puntos cardinales -->
-        <circle cx="28" cy="4.5"  r="1.2" fill="#b8913a" opacity="0.35"/>
-        <circle cx="28" cy="51.5" r="1.2" fill="#b8913a" opacity="0.35"/>
-        <circle cx="4.5"  cy="28" r="1.2" fill="#b8913a" opacity="0.35"/>
-        <circle cx="51.5" cy="28" r="1.2" fill="#b8913a" opacity="0.35"/>
-        <text x="28" y="33" text-anchor="middle"
-            font-family="'Great Vibes', cursive"
-            font-size="16"
-            fill="#b8913a"
-            opacity="0.9">Z &amp; G</text>
+    <!-- Cinta vertical -->
+    <div class="sobre__cinta" aria-hidden="true"></div>
+
+    <!-- Sello de lacre -->
+    <div class="sobre__sello" id="sobre-sello" aria-label="Sello de lacre Z y G">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" class="sobre__sello-svg">
+        <path d="M32 4 C36 3,40 5,43 4 C47 3,50 6,53 8 C56 11,58 14,59 18 C61 22,61 26,60 30 C59 34,61 38,59 42 C57 46,54 49,50 51 C46 53,42 55,38 56 C34 57,30 57,26 56 C22 55,18 53,15 51 C11 48,8 45,6 41 C4 37,3 33,4 29 C4 25,3 21,5 17 C7 13,10 10,14 8 C18 5,22 3,26 4 C28 3,30 4,32 4Z" fill="#8B5E2E"/>
+        <path d="M32 8 C35 7,38 9,41 8 C44 7,47 10,49 12 C51 15,53 18,53 22 C53 26,54 30,52 33 C50 36,52 40,50 43 C48 46,45 48,41 50 C37 51,33 52,29 51 C25 50,21 48,18 46 C15 43,13 40,12 36 C11 32,11 28,13 25 C14 21,13 17,15 14 C17 11,20 9,24 8 C27 7,30 8,32 8Z" fill="#A0712E"/>
+        <ellipse cx="23" cy="20" rx="5" ry="3" fill="#C4913E" opacity="0.4" transform="rotate(-30 23 20)"/>
+        <circle cx="32" cy="32" r="15" stroke="#6B4820" stroke-width="0.8" opacity="0.5" fill="none"/>
+        <text x="32" y="37" text-anchor="middle" font-family="'Great Vibes', cursive" font-size="15" fill="#F5E6C8" opacity="0.95" letter-spacing="1">Z &amp; G</text>
         </svg>
     </div>
 
     </div><!-- /sobre -->
 </div><!-- /sobre-escena -->
 
-<!-- Mensaje personalizado al invitado (inyectado por JS) -->
-<p class="sobre-mensaje-invitado" id="sobre-mensaje-invitado"></p>
+<!-- Hint parpadeante -->
+<p class="sobre-hint" id="sobre-hint" aria-hidden="true">toca para abrir</p>
 
-<!-- Botón abrir -->
-<button class="sobre-btn" id="btn-abrir-sobre" aria-label="Abrir la invitación">
-    Abrir invitación
-</button>
+<!-- Mensaje personalizado al invitado -->
+<p class="sobre-mensaje-invitado" id="sobre-mensaje-invitado"></p>
 
 </section><!-- /sobre-screen -->
 
