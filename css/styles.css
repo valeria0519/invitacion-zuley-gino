@@ -6,15 +6,15 @@ Mobile-first | Sin frameworks
 
 /* ── Tokens de diseño ─────────────────────────────────────────── */
 :root {
---c-marfil:       #f0e9e4;
---c-verde-claro:  #d6cfc9;
---c-verde:        #21594c;
---c-verde-deep:   #193f37;
+--c-marfil:       #f2ede6;
+--c-verde-claro:  #c8cdb8;
+--c-verde:        #3d5a3e;
+--c-verde-deep:   #2c4230;
 --c-azul:         #242c6d;
---c-dorado:       #c9a84c;
---c-dorado-claro: #dfc07a;
+--c-dorado:       #b8913a;
+--c-dorado-claro: #d4ad68;
 --c-texto:        #2e2a27;
---c-texto-suave:  #5a5148;
+--c-texto-suave:  #4f5445;
 
 --f-script: 'Great Vibes', cursive;
 --f-serif:  'Cormorant Garamond', Georgia, serif;
@@ -52,7 +52,7 @@ ol, ul { list-style: none; }
 .container { width: 100%; max-width: 900px; margin-inline: auto; padding-inline: var(--espacio-md); }
 .container--narrow { max-width: 640px; }
 .hidden { display: none !important; }
-.section-ivory  { background: #eae3dd; }
+.section-ivory  { background: #eceae3; }
 .section-marfil { background: var(--c-marfil); }
 .section-verde  { background: var(--c-verde); color: var(--c-marfil); }
 
@@ -206,7 +206,7 @@ border-radius: 2px;
 position: absolute;
 bottom: 0; left: 0; right: 0;
 height: 55%;
-background: #e8e0da;
+background: #dde3d5;
 clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
 z-index: 0;
 }
@@ -216,7 +216,7 @@ z-index: 0;
 position: absolute;
 top: 0; bottom: 0;
 width: 54%;
-background: #ede6e0;
+background: #e2e8d8;
 z-index: 1;
 }
 .sobre__lado--izq { left: 0;  clip-path: polygon(0 0, 100% 47%, 0 100%); }
@@ -227,7 +227,7 @@ z-index: 1;
 position: absolute;
 bottom: 0; left: 0; right: 0;
 height: 52%;
-background: #e3dbd4;
+background: #d8dece;
 clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
 z-index: 2;
 border-top: 1px solid rgba(201,168,76,0.07);
@@ -328,7 +328,7 @@ transform-style: preserve-3d;
 .sobre__solapa-top {
 position: absolute;
 inset: 0;
-background: #eae3dd;
+background: #eceae3;
 clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
 }
 

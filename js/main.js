@@ -93,7 +93,7 @@ let petalosAnimando = false;
 let petalos         = [];
 
 /* Colores dorados de la paleta */
-const PETAL_COLORS = ['#c9a84c', '#dfc07a', '#a8882e', '#e8d090'];
+const PETAL_COLORS = ['#b8913a', '#d4ad68', '#8f6e22', '#d9c07a'];
 
 /* Dimensionar el canvas al tamaño real de la pantalla */
 function dimensionarCanvas() {
