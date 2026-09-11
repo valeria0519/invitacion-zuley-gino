@@ -89,104 +89,6 @@ const sobreTagline = document.getElementById('sobre-tagline');
 /* Preferencia de movimiento reducido */
 const prefReducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ── Canvas de partículas ─────────────────────────────────────── */
-const petalosCanvas = document.getElementById('petalos-canvas');
-const pCtx          = petalosCanvas.getContext('2d');
-let petalosRaf;
-let petalos = [];
-
-/* Paleta: dorado envejecido + marfil + verde salvia */
-const PETAL_COLORS = ['#B79A62', '#d4b87a', '#9a7d3a', '#e8ddc0', '#858A72'];
-
-function dimensionarCanvas() {
-const rect = sobreScreen.getBoundingClientRect();
-petalosCanvas.width  = rect.width  || window.innerWidth;
-petalosCanvas.height = rect.height || window.innerHeight;
-}
-dimensionarCanvas();
-window.addEventListener('resize', dimensionarCanvas);
-
-function crearPetalo(cx, cy) {
-const angBase = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.5;
-const speed   = 1.4 + Math.random() * 2.4;
-const tipo    = Math.floor(Math.random() * 4);
-return {
-    x: cx, y: cy,
-    vx: Math.cos(angBase) * speed,
-    vy: Math.sin(angBase) * speed - 0.6,
-    gravity: 0.04 + Math.random() * 0.035,
-    angle:  Math.random() * Math.PI * 2,
-    va:     (Math.random() - 0.5) * 0.07,
-    r:      2 + Math.random() * 5,
-    tipo,
-    color: PETAL_COLORS[Math.floor(Math.random() * PETAL_COLORS.length)],
-    alpha: 0.85 + Math.random() * 0.15,
-    decay: 0.005 + Math.random() * 0.007,
-    alive: true,
-};
-}
-
-function dibujarPetalo(p) {
-pCtx.save();
-pCtx.translate(p.x, p.y);
-pCtx.rotate(p.angle);
-pCtx.globalAlpha = p.alpha;
-pCtx.fillStyle   = p.color;
-pCtx.strokeStyle = p.color;
-if (p.tipo === 0) {
-    pCtx.beginPath();
-    pCtx.ellipse(0, 0, p.r * 0.32, p.r, 0, 0, Math.PI * 2);
-    pCtx.fill();
-} else if (p.tipo === 1) {
-    pCtx.beginPath();
-    pCtx.moveTo(0, -p.r);
-    pCtx.lineTo(p.r * 0.42, 0);
-    pCtx.lineTo(0, p.r);
-    pCtx.lineTo(-p.r * 0.42, 0);
-    pCtx.closePath();
-    pCtx.fill();
-} else if (p.tipo === 2) {
-    pCtx.lineWidth = p.r * 0.2;
-    pCtx.lineCap   = 'round';
-    pCtx.beginPath();
-    pCtx.moveTo(0, -p.r * 0.6);
-    pCtx.lineTo(0,  p.r * 0.6);
-    pCtx.stroke();
-} else {
-    pCtx.beginPath();
-    pCtx.arc(0, 0, p.r * 0.45, 0, Math.PI * 2);
-    pCtx.fill();
-}
-pCtx.restore();
-}
-
-function loopPetalos() {
-pCtx.clearRect(0, 0, petalosCanvas.width, petalosCanvas.height);
-let hayVivas = false;
-for (const p of petalos) {
-    if (!p.alive) continue;
-    p.x += p.vx; p.y += p.vy;
-    p.vy += p.gravity; p.vx *= 0.988;
-    p.angle += p.va; p.alpha -= p.decay;
-    if (p.alpha <= 0) { p.alive = false; continue; }
-    hayVivas = true;
-    dibujarPetalo(p);
-}
-if (hayVivas) {
-    petalosRaf = requestAnimationFrame(loopPetalos);
-} else {
-    pCtx.clearRect(0, 0, petalosCanvas.width, petalosCanvas.height);
-}
-}
-
-function lanzarPetalos(cx, cy, n = 32) {
-if (prefReducido) return;
-cancelAnimationFrame(petalosRaf);
-petalos = [];
-for (let i = 0; i < n; i++) petalos.push(crearPetalo(cx, cy));
-petalosRaf = requestAnimationFrame(loopPetalos);
-}
-
 /* ── Inyectar mensaje personalizado al invitado ───────────────── */
 if (INVITADO) {
 mensajeEl.innerHTML =
@@ -199,8 +101,25 @@ mensajeEl.textContent = 'Queremos que seas parte de nuestra historia.';
 const inputNumAcomp = document.getElementById('num-acompanantes');
 if (inputNumAcomp) inputNumAcomp.max = MAX_ACOMPANANTES;
 
-/* ── Secuencia principal de apertura ─────────────────────────── */
+/* ── Secuencia principal de apertura ─────────────────────────────
+Una sola coreografía controlada por clases CSS (nada de estilos
+inline ni transiciones que se pisen entre sí):
+
+1. .sobre__sello--presionado   → el lacre baja a scale(0.94)
+2. (se quita la clase)         → el lacre vuelve a scale(1), sin rebote
+3-4. .sobre--abierto           → el sello se desvanece y la solapa gira,
+                                   el cuerpo y el contenedor del sobre
+                                   permanecen quietos
+5. .cerrado en #sobre-screen   → funde toda la pantalla del sobre
+6. finalizarApertura()         → aparece la foto principal
+
+Duración total ≈ 1.1s.
+================================================================ */
 let yaAbierto = false;
+
+const DURACION_PRESION   = 110; // ms sosteniendo el scale(0.94)
+const DURACION_APERTURA  = 600; // ms de giro de la solapa
+const DURACION_FUNDIDO   = 300; // ms de fundido de toda la pantalla
 
 function abrirSobre() {
 if (yaAbierto) return;
@@ -216,48 +135,38 @@ if (prefReducido) {
     return;
 }
 
-/* ── FASE 1 (0ms): Presión del sello ─────────────────────────── */
-sobreSello.querySelector('.lacre').style.transform = 'scale(0.88)';
+/* 1. Presión del sello: scale(1) → scale(0.94) */
+sobreSello.classList.add('sobre__sello--presionado');
 
-/* ── FASE 2 (180ms): Soltar y fade del sello ─────────────────── */
+/* 2. Recuperar la escala inmediatamente, sin rebote */
 setTimeout(() => {
-    sobreSello.querySelector('.lacre').style.transition =
-        'transform 0.5s cubic-bezier(0.34,1.4,0.64,1)';
-    sobreSello.querySelector('.lacre').style.transform = 'scale(1.06)';
+    sobreSello.classList.remove('sobre__sello--presionado');
+}, DURACION_PRESION);
 
-    /* Fade header + tagline + mensaje */
+/* 3-4. El sello se desvanece y la solapa abre en 3D.
+        El cuerpo y el contenedor del sobre no se mueven. */
+setTimeout(() => {
+    sobre.classList.add('sobre--abierto');
+    sobreSombra.classList.add('sobre-sombra--abierta');
+
     [sobreHeader, sobreTagline, mensajeEl].forEach(el => {
         if (!el) return;
         el.style.transition = 'opacity 0.4s ease';
         el.style.opacity    = '0';
         el.style.pointerEvents = 'none';
     });
-}, 180);
+}, DURACION_PRESION + 110);
 
-/* ── FASE 3 (180ms): Sello desaparece, la solapa comienza a abrirse */
+/* 6. Una vez abierta la solapa, fundir toda la pantalla del sobre */
 setTimeout(() => {
-    sobre.classList.add('sobre--abierto');
+    sobreScreen.classList.add('cerrado');
+}, DURACION_PRESION + 110 + DURACION_APERTURA);
 
-    /* Lanzar partículas desde la posición del sello */
-    dimensionarCanvas();
-    const selRect    = sobreSello.getBoundingClientRect();
-    const screenRect = sobreScreen.getBoundingClientRect();
-    const cx = selRect.left - screenRect.left + selRect.width  / 2;
-    const cy = selRect.top  - screenRect.top  + selRect.height / 2;
-    lanzarPetalos(cx, cy, 32);
-
-    /* Sombra se expande: sobre "se levanta" */
-    sobreSombra.style.transition =
-        'width 0.9s cubic-bezier(0.4,0,0.2,1) 0.2s, ' +
-        'opacity 0.9s ease 0.2s, ' +
-        'transform 0.9s ease 0.2s';
-    sobreSombra.style.width   = '92%';
-    sobreSombra.style.opacity = '0.45';
-    sobreSombra.style.transform = 'translateX(-50%) scaleY(1.3)';
-}, 180);
-
-/* ── FASE 4 (1000ms): Fade directo a la foto; termina a los 1380ms. */
-setTimeout(finalizarApertura, 1000);
+/* 7. Mostrar la foto principal apenas termina el fundido */
+setTimeout(
+    finalizarApertura,
+    DURACION_PRESION + 110 + DURACION_APERTURA + DURACION_FUNDIDO
+);
 }
 
 function finalizarApertura() {
