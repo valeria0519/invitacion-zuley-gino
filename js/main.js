@@ -1,5 +1,5 @@
 /**
- * BODA ZULEY & GINO — main.js  v2
+ * BODA ZUHEY & GINO — main.js  v2
  *
  * Módulos:
  *  0. Parámetros de URL (invitado, código, acompañantes máx.)
