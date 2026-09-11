@@ -77,11 +77,9 @@ const CODIGO_INVITADO = urlParams.get('codigo') || '';
 ================================================================ */
 const sobreScreen  = document.getElementById('sobre-screen');
 const sobre        = document.getElementById('sobre');
-const sobreWrapper = document.getElementById('sobre-wrapper');
 const sobreSombra  = document.getElementById('sobre-sombra');
 const sobreSello   = document.getElementById('sobre-sello');
 const btnAbrir     = document.getElementById('btn-abrir-sobre');
-const sobreTarjeta = document.getElementById('sobre-tarjeta');
 const contenido    = document.getElementById('contenido-principal');
 const musicControl = document.getElementById('music-control');
 const mensajeEl    = document.getElementById('sobre-mensaje-invitado');
@@ -236,7 +234,7 @@ setTimeout(() => {
     });
 }, 180);
 
-/* ── FASE 3 (480ms): Sello desaparece, la solapa comienza a abrirse */
+/* ── FASE 3 (180ms): Sello desaparece, la solapa comienza a abrirse */
 setTimeout(() => {
     sobre.classList.add('sobre--abierto');
 
@@ -256,55 +254,17 @@ setTimeout(() => {
     sobreSombra.style.width   = '92%';
     sobreSombra.style.opacity = '0.45';
     sobreSombra.style.transform = 'translateX(-50%) scaleY(1.3)';
-}, 480);
+}, 180);
 
-/* ── FASE 4 (900ms): La tarjeta comienza a emerger ───────────── */
-setTimeout(() => {
-    /*
-     * La tarjeta sube desde dentro del sobre hasta ocupar gran parte
-     * del viewport. Usamos JS para calcular cuánto debe subir.
-     */
-    const sobreRect   = sobreWrapper.getBoundingClientRect();
-    const screenH     = window.innerHeight;
-    const tarjetaH    = sobreTarjeta.offsetHeight;
-    /* Queremos que la tarjeta quede centrada, ligeramente alta */
-    const targetTop   = screenH * 0.12; /* 12% desde el top de la pantalla */
-    const sobreBottom = sobreRect.bottom;
-    /* Cuánto sube la tarjeta: desde su posición actual (bottom del sobre) */
-    const subirPx     = sobreBottom - targetTop - tarjetaH;
-
-    sobreTarjeta.style.transition =
-        'transform 1.4s cubic-bezier(0.16,1,0.3,1), ' +
-        'box-shadow 1.4s ease, opacity 0.3s ease';
-    sobreTarjeta.classList.add('saliendo');
-    sobreTarjeta.style.transform =
-        `translateX(-50%) translateY(calc(-${subirPx}px - 100% + 12px))`;
-    sobreTarjeta.style.boxShadow =
-        '0 24px 60px rgba(48,51,41,0.22), 0 8px 24px rgba(48,51,41,0.14)';
-
-    /* El sobre baja un poco (reacción contraria) */
-    sobreWrapper.style.transition =
-        'transform 1.4s cubic-bezier(0.16,1,0.3,1)';
-    sobreWrapper.style.transform = 'translateY(12px)';
-
-    /* Sombra del sobre se contrae (ya no es protagonista) */
-    sobreSombra.style.transition = 'opacity 0.8s ease 0.3s, width 0.8s ease 0.3s';
-    sobreSombra.style.opacity = '0.2';
-    sobreSombra.style.width   = '60%';
-}, 900);
-
-/* ── FASE 5 (1600ms): Textos de la tarjeta aparecen ─────────── */
-setTimeout(() => {
-    sobreTarjeta.classList.add('revelada');
-}, 1600);
-
-/* ── FASE 6 (2800ms): Transición al contenido principal ──────── */
-setTimeout(() => {
-    finalizarApertura();
-}, 2800);
+/* ── FASE 4 (1000ms): Fade directo a la foto; termina a los 1380ms. */
+setTimeout(finalizarApertura, 1000);
 }
 
 function finalizarApertura() {
+window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+contenido.inert = false;
+sobreScreen.setAttribute('aria-hidden', 'true');
+sobreScreen.inert = true;
 sobreScreen.classList.add('cerrado');
 contenido.setAttribute('aria-hidden', 'false');
 contenido.classList.add('visible');

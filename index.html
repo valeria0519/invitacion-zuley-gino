@@ -76,47 +76,6 @@ rel="stylesheet"
         <!-- Sombra proyectada -->
         <div class="sobre-sombra" id="sobre-sombra"></div>
 
-        <!-- Tarjeta de invitación que emerge -->
-        <div class="sobre__tarjeta" id="sobre-tarjeta" aria-hidden="true">
-            <!-- Eucalipto sutil detrás de la tarjeta -->
-            <div class="tarjeta__botanico" aria-hidden="true">
-                <svg viewBox="0 0 120 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M60 175 C64 130 56 90 60 50 C62 35 66 20 68 5" stroke="#858A72" stroke-width="0.9" fill="none" opacity="0.4"/>
-                    <path d="M61 148 C75 138 84 126 88 114" stroke="#858A72" stroke-width="0.7" fill="none" opacity="0.3"/>
-                    <ellipse cx="90" cy="112" rx="5" ry="9" fill="#858A72" fill-opacity="0.12" stroke="#858A72" stroke-width="0.6" opacity="0.3" transform="rotate(30 90 112)"/>
-                    <path d="M61 120 C48 110 40 98 36 85" stroke="#858A72" stroke-width="0.7" fill="none" opacity="0.3"/>
-                    <ellipse cx="35" cy="83" rx="4" ry="8" fill="#858A72" fill-opacity="0.12" stroke="#858A72" stroke-width="0.6" opacity="0.28" transform="rotate(-22 35 83)"/>
-                    <path d="M62 92 C76 82 84 70 87 57" stroke="#858A72" stroke-width="0.7" fill="none" opacity="0.28"/>
-                    <ellipse cx="88" cy="55" rx="4" ry="8" fill="#858A72" fill-opacity="0.12" stroke="#858A72" stroke-width="0.6" opacity="0.26" transform="rotate(25 88 55)"/>
-                    <path d="M63 65 C50 55 42 44 38 32" stroke="#858A72" stroke-width="0.6" fill="none" opacity="0.25"/>
-                    <ellipse cx="37" cy="30" rx="4" ry="7" fill="#858A72" fill-opacity="0.1" stroke="#858A72" stroke-width="0.5" opacity="0.24" transform="rotate(-18 37 30)"/>
-                </svg>
-            </div>
-            <!-- Borde interior dorado -->
-            <div class="tarjeta__marco" aria-hidden="true"></div>
-            <!-- Esquinas decorativas -->
-            <div class="tarjeta__esquina tarjeta__esquina--tl" aria-hidden="true"></div>
-            <div class="tarjeta__esquina tarjeta__esquina--tr" aria-hidden="true"></div>
-            <div class="tarjeta__esquina tarjeta__esquina--bl" aria-hidden="true"></div>
-            <div class="tarjeta__esquina tarjeta__esquina--br" aria-hidden="true"></div>
-            <!-- Contenido -->
-            <div class="tarjeta__contenido">
-                <p class="tarjeta__eyebrow">ZUHEY &amp; GINO</p>
-                <p class="tarjeta__titulo">Nos casamos</p>
-                <div class="tarjeta__divisor" aria-hidden="true"></div>
-                <p class="tarjeta__fecha">12 · 12 · 2026</p>
-                <p class="tarjeta__lugar">Lima, Perú</p>
-            </div>
-            <!-- Indicación de scroll -->
-            <div class="tarjeta__scroll-hint" id="tarjeta-scroll-hint" aria-label="Continúa hacia abajo">
-                <span class="scroll-hint__texto">Desliza para continuar</span>
-                <svg class="scroll-hint__flecha" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <line x1="8" y1="0" x2="8" y2="18" stroke="#B79A62" stroke-width="0.8" opacity="0.7"/>
-                    <path d="M3 13 L8 19 L13 13" stroke="#B79A62" stroke-width="0.8" fill="none" opacity="0.7"/>
-                </svg>
-            </div>
-        </div>
-
         <!-- Cuerpo del sobre -->
         <div class="sobre" id="sobre">
 
@@ -250,7 +209,24 @@ rel="stylesheet"
 <!-- ============================================================
     CONTENIDO PRINCIPAL (oculto hasta apertura)
     ============================================================ -->
-<main id="contenido-principal" aria-hidden="true">
+<main id="contenido-principal" aria-hidden="true" inert>
+
+<section class="foto-principal section-ivory" aria-label="Fotografía de los novios">
+    <div class="foto-principal__marco">
+    <img
+        src="assets/images/pareja-principal.jpeg"
+        alt="Zuhey y Gino"
+        loading="eager"
+        fetchpriority="high"
+        width="572"
+        height="842"
+        class="foto-principal__img"
+        onerror="this.parentElement.classList.add('foto-placeholder')"
+    />
+    <div class="foto-principal__overlay" aria-hidden="true"></div>
+    </div>
+</section>
+
 
 <!-- ── 1. HERO ─────────────────────────────────────────────── -->
 <section class="hero section-ivory" aria-label="Hero">
@@ -259,6 +235,12 @@ rel="stylesheet"
     <h1 class="hero__nombres animate-up delay-1">Zuhey &amp; Gino</h1>
     <p class="hero__fecha-texto animate-up delay-2">Sábado · 12 de diciembre de 2026</p>
     <p class="hero__lugar animate-up delay-3">Santa María de Huachipa · Lima, Perú</p>
+    </div>
+    <div class="container container--narrow">
+    <p class="foto-principal__cita animate-up delay-1">
+        <!-- PLACEHOLDER: frase opcional junto a la foto -->
+        "Dos almas que eligieron caminar juntas."
+    </p>
     </div>
     <div class="section-divider" aria-hidden="true"></div>
 </section>
@@ -309,27 +291,7 @@ rel="stylesheet"
     </div>
 </section>
 
-<!-- ── 4. FOTOGRAFÍA PRINCIPAL ────────────────────────────── -->
-<section class="foto-principal section-marfil" aria-label="Fotografía de los novios">
-    <div class="foto-principal__marco animate-up">
-    <img
-        src="assets/images/pareja-principal.jpeg"
-        alt="Zuhey y Gino"
-        loading="lazy"
-        width="800"
-        height="1000"
-        class="foto-principal__img"
-        onerror="this.parentElement.classList.add('foto-placeholder')"
-    />
-    <div class="foto-principal__overlay" aria-hidden="true"></div>
-    </div>
-    <div class="container container--narrow">
-    <p class="foto-principal__cita animate-up delay-1">
-        <!-- PLACEHOLDER: frase opcional junto a la foto -->
-        "Dos almas que eligieron caminar juntas."
-    </p>
-    </div>
-</section>
+
 
 <!-- ── 5. CEREMONIA & RECEPCIÓN ───────────────────────────── -->
 <section class="evento section-ivory" aria-label="Ceremonia y Recepción">
