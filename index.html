@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Boda Zuley &amp; Gino | 12.12.2026</title>
+
+<!-- SEO -->
+<meta name="description" content="Te invitamos a celebrar nuestro matrimonio." />
+<meta name="robots" content="noindex, nofollow" />
+
+<!-- Open Graph / WhatsApp -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Boda Zuley &amp; Gino | 12.12.2026" />
+<meta property="og:description" content="Te invitamos a celebrar nuestro matrimonio el 12 de diciembre de 2026 en Santa María de Huachipa, Lima." />
+<meta property="og:image" content="assets/images/og-image.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="es_PE" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Boda Zuley &amp; Gino | 12.12.2026" />
+<meta name="twitter:image" content="assets/images/og-image.jpg" />
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Great+Vibes&family=Jost:wght@300;400;500&display=swap"
+rel="stylesheet"
+/>
+
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<!-- ============================================================
+    EXPERIENCIA DE APERTURA — SOBRE
+    ============================================================ -->
+<section id="sobre-screen" aria-label="Experiencia de apertura">
+
+<!-- Canvas de partículas doradas (se activa al abrir el sobre) -->
+<canvas id="petalos-canvas" aria-hidden="true"></canvas>
+
+<!-- Botánicos de fondo -->
+<div class="sobre-bg-botanico" aria-hidden="true">
+    <svg class="botanico-tl" viewBox="0 0 160 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 220 Q36 150 22 80 Q42 64 56 12" stroke="#c9a84c" stroke-width="0.9" fill="none" opacity="0.38"/>
+    <path d="M26 162 Q52 144 70 118" stroke="#c9a84c" stroke-width="0.7" fill="none" opacity="0.24"/>
+    <path d="M30 195 Q14 170 4 145" stroke="#c9a84c" stroke-width="0.7" fill="none" opacity="0.2"/>
+    <ellipse cx="56" cy="11" rx="6" ry="11" stroke="#c9a84c" stroke-width="0.7" fill="none" opacity="0.28" transform="rotate(-18 56 11)"/>
+    <ellipse cx="70" cy="117" rx="5" ry="9" stroke="#c9a84c" stroke-width="0.7" fill="none" opacity="0.2" transform="rotate(26 70 117)"/>
+    <path d="M46 118 Q72 94 90 66" stroke="#c9a84c" stroke-width="0.5" fill="none" opacity="0.16" stroke-dasharray="2 5"/>
+    </svg>
+    <svg class="botanico-br" viewBox="0 0 160 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 220 Q36 150 22 80 Q42 64 56 12" stroke="#c9a84c" stroke-width="0.9" fill="none" opacity="0.38"/>
+    <path d="M26 162 Q52 144 70 118" stroke="#c9a84c" stroke-width="0.7" fill="none" opacity="0.24"/>
+    <path d="M30 195 Q14 170 4 145" stroke="#c9a84c" stroke-width="0.7" fill="none" opacity="0.2"/>
+    <ellipse cx="56" cy="11" rx="6" ry="11" stroke="#c9a84c" stroke-width="0.7" fill="none" opacity="0.28" transform="rotate(-18 56 11)"/>
+    <ellipse cx="70" cy="117" rx="5" ry="9" stroke="#c9a84c" stroke-width="0.7" fill="none" opacity="0.2" transform="rotate(26 70 117)"/>
+    </svg>
+</div>
+
+<!-- Texto introductorio -->
+<p class="sobre-pretexto" id="sobre-pretexto">Tenemos algo para ti…</p>
+
+<!-- Escena del sobre -->
+<div class="sobre-escena" id="sobre-escena" aria-hidden="true">
+
+    <!-- Sombra proyectada -->
+    <div class="sobre-sombra" id="sobre-sombra"></div>
+
+    <!-- Cuerpo del sobre -->
+    <div class="sobre" id="sobre">
+
+    <!-- Interior (base con solapas) -->
+    <div class="sobre__interior">
+        <!-- Solapa trasera V -->
+        <div class="sobre__solapa-trasera"></div>
+        <!-- Lados laterales -->
+        <div class="sobre__lado sobre__lado--izq"></div>
+        <div class="sobre__lado sobre__lado--der"></div>
+        <!-- Base inferior -->
+        <div class="sobre__solapa-bottom"></div>
+
+        <!-- Tarjeta que emerge desde el interior -->
+        <div class="sobre__tarjeta" id="sobre-tarjeta">
+        <!-- Esquina decorativa inferior derecha -->
+        <div class="sobre__tarjeta-corner" aria-hidden="true"></div>
+        <p class="tarjeta__anuncio">con amor</p>
+        <p class="tarjeta__nombres">Zuley &amp; Gino</p>
+        <p class="tarjeta__fecha">12 · 12 · 2026</p>
+        </div>
+    </div>
+
+    <!-- Solapa superior (se dobla al abrirse) -->
+    <div class="sobre__solapa-top-wrap" id="sobre-solapa-wrap">
+        <div class="sobre__solapa-top">
+        <div class="sobre__pliegue" aria-hidden="true"></div>
+        </div>
+    </div>
+
+    <!-- Sello con iniciales -->
+    <div class="sobre__sello" id="sobre-sello" aria-label="Sello con iniciales Z y G">
+        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" class="sobre__sello-svg">
+        <circle cx="28" cy="28" r="24" stroke="#c9a84c" stroke-width="0.7" opacity="0.55"/>
+        <circle cx="28" cy="28" r="19" stroke="#c9a84c" stroke-width="0.5" opacity="0.4"/>
+        <!-- Marcas de lacre en los cuatro puntos cardinales -->
+        <circle cx="28" cy="4.5"  r="1.2" fill="#c9a84c" opacity="0.35"/>
+        <circle cx="28" cy="51.5" r="1.2" fill="#c9a84c" opacity="0.35"/>
+        <circle cx="4.5"  cy="28" r="1.2" fill="#c9a84c" opacity="0.35"/>
+        <circle cx="51.5" cy="28" r="1.2" fill="#c9a84c" opacity="0.35"/>
+        <text x="28" y="33" text-anchor="middle"
+            font-family="'Great Vibes', cursive"
+            font-size="16"
+            fill="#c9a84c"
+            opacity="0.9">Z &amp; G</text>
+        </svg>
+    </div>
+
+    </div><!-- /sobre -->
+</div><!-- /sobre-escena -->
+
+<!-- Mensaje personalizado al invitado (inyectado por JS) -->
+<p class="sobre-mensaje-invitado" id="sobre-mensaje-invitado"></p>
+
+<!-- Botón abrir -->
+<button class="sobre-btn" id="btn-abrir-sobre" aria-label="Abrir la invitación">
+    Abrir invitación
+</button>
+
+</section><!-- /sobre-screen -->
+
+
+<!-- ============================================================
+    CONTENIDO PRINCIPAL (oculto hasta apertura)
+    ============================================================ -->
+<main id="contenido-principal" aria-hidden="true">
+
+<!-- ── 1. HERO ─────────────────────────────────────────────── -->
+<section class="hero section-ivory" aria-label="Hero">
+    <div class="hero__inner container">
+    <p class="eyebrow-script animate-up">Una historia de amor</p>
+    <h1 class="hero__nombres animate-up delay-1">Zuley &amp; Gino</h1>
+    <p class="hero__fecha-texto animate-up delay-2">Sábado · 12 de diciembre de 2026</p>
+    <p class="hero__lugar animate-up delay-3">Santa María de Huachipa · Lima, Perú</p>
+    </div>
+    <div class="section-divider" aria-hidden="true"></div>
+</section>
+
+<!-- ── 2. INTRODUCCIÓN ────────────────────────────────────── -->
+<section class="intro section-marfil" aria-label="Introducción">
+    <div class="container container--narrow">
+    <blockquote class="intro__frase animate-up">
+        <!-- PLACEHOLDER: reemplaza con la frase de los novios -->
+        "[FRASE DE LOS NOVIOS]"
+    </blockquote>
+    <div class="intro__separador animate-up delay-1" aria-hidden="true">
+        <svg viewBox="0 0 80 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="4" x2="30" y2="4" stroke="#c9a84c" stroke-width="0.7" opacity="0.5"/>
+        <circle cx="40" cy="4" r="2" fill="#c9a84c" opacity="0.6"/>
+        <line x1="50" y1="4" x2="80" y2="4" stroke="#c9a84c" stroke-width="0.7" opacity="0.5"/>
+        </svg>
+    </div>
+    <p class="intro__texto animate-up delay-2">
+        Tenemos el honor de invitarte a celebrar<br />nuestro matrimonio.
+    </p>
+    </div>
+</section>
+
+<!-- ── 3. CUENTA REGRESIVA ────────────────────────────────── -->
+<section class="countdown section-verde" aria-label="Cuenta regresiva">
+    <div class="container">
+    <p class="section-label-light animate-up">Faltan</p>
+    <div class="countdown__grid animate-up delay-1" id="countdown" role="timer" aria-live="polite" aria-label="Tiempo restante para la boda">
+        <div class="countdown__item">
+        <span class="countdown__num" id="cd-dias">--</span>
+        <span class="countdown__label">días</span>
+        </div>
+        <div class="countdown__item">
+        <span class="countdown__num" id="cd-horas">--</span>
+        <span class="countdown__label">horas</span>
+        </div>
+        <div class="countdown__item">
+        <span class="countdown__num" id="cd-minutos">--</span>
+        <span class="countdown__label">minutos</span>
+        </div>
+        <div class="countdown__item">
+        <span class="countdown__num" id="cd-segundos">--</span>
+        <span class="countdown__label">segundos</span>
+        </div>
+    </div>
+    <p class="countdown__sub animate-up delay-2">hasta que nos demos el «sí»</p>
+    </div>
+</section>
+
+<!-- ── 4. FOTOGRAFÍA PRINCIPAL ────────────────────────────── -->
+<section class="foto-principal section-marfil" aria-label="Fotografía de los novios">
+    <div class="foto-principal__marco animate-up">
+    <img
+        src="assets/images/pareja-principal.jpg"
+        alt="Zuley y Gino"
+        loading="lazy"
+        width="800"
+        height="1000"
+        class="foto-principal__img"
+        onerror="this.parentElement.classList.add('foto-placeholder')"
+    />
+    <div class="foto-principal__overlay" aria-hidden="true"></div>
+    </div>
+    <div class="container container--narrow">
+    <p class="foto-principal__cita animate-up delay-1">
+        <!-- PLACEHOLDER: frase opcional junto a la foto -->
+        "Dos almas que eligieron caminar juntas."
+    </p>
+    </div>
+</section>
+
+<!-- ── 5. CEREMONIA & RECEPCIÓN ───────────────────────────── -->
+<section class="evento section-ivory" aria-label="Ceremonia y Recepción">
+    <div class="container container--narrow">
+    <p class="section-eyebrow animate-up">Les damos la bienvenida</p>
+    <h2 class="section-title animate-up delay-1">Ceremonia &amp; Recepción</h2>
+
+    <div class="evento__datos animate-up delay-2">
+        <div class="evento__linea">
+        <svg class="evento__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2" stroke="#21594c" stroke-width="1.2"/>
+            <line x1="16" y1="2" x2="16" y2="6" stroke="#21594c" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="8" y1="2" x2="8" y2="6" stroke="#21594c" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="3" y1="9" x2="21" y2="9" stroke="#21594c" stroke-width="1.2"/>
+        </svg>
+        <span>Sábado, 12 de diciembre de 2026</span>
+        </div>
+        <div class="evento__linea">
+        <svg class="evento__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" stroke="#21594c" stroke-width="1.2"/>
+            <path d="M12 7v5l3 3" stroke="#21594c" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        <!-- PLACEHOLDER: reemplaza con el horario -->
+        <span>[HORARIO]</span>
+        </div>
+        <div class="evento__linea">
+        <svg class="evento__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#21594c" stroke-width="1.2"/>
+            <circle cx="12" cy="9" r="2.5" stroke="#21594c" stroke-width="1.2"/>
+        </svg>
+        <span>
+            Santa María de Huachipa<br />
+            <small>Lima, Perú</small>
+        </span>
+        </div>
+        <div class="evento__referencia animate-up delay-3">
+        Calle Los Gavilanes · a una cuadra del Colegio Saint Gerard
+        </div>
+    </div>
+
+    <a
+        href="https://maps.app.goo.gl/5tdKYCppKemc1da28?g_st=com.google.maps.preview.copy"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-mapa animate-up delay-4"
+        aria-label="Abrir ubicación en Google Maps"
+    >
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="btn-mapa__icon">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" stroke-width="1.3"/>
+        <circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.3"/>
+        </svg>
+        Cómo llegar
+    </a>
+    </div>
+</section>
+
+<!-- ── 6. ITINERARIO ──────────────────────────────────────── -->
+<section class="itinerario section-marfil" aria-label="Itinerario del día">
+    <div class="container container--narrow">
+    <p class="section-eyebrow animate-up">El día</p>
+    <h2 class="section-title animate-up delay-1">Itinerario</h2>
+
+    <ol class="timeline" aria-label="Programa del evento">
+        <li class="timeline__item animate-up delay-1">
+        <div class="timeline__hora">[HORA]</div>
+        <div class="timeline__linea" aria-hidden="true"></div>
+        <div class="timeline__contenido">
+            <svg class="timeline__icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M10 2L10 18M4 8l6-6 6 6" stroke="#c9a84c" stroke-width="1" stroke-linecap="round"/>
+            </svg>
+            <span>Llegada de invitados</span>
+        </div>
+        </li>
+        <li class="timeline__item animate-up delay-2">
+        <div class="timeline__hora">[HORA]</div>
+        <div class="timeline__linea" aria-hidden="true"></div>
+        <div class="timeline__contenido">
+            <svg class="timeline__icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" stroke="#c9a84c" stroke-width="1"/>
+            <path d="M7 10l2 2 4-4" stroke="#c9a84c" stroke-width="1" stroke-linecap="round"/>
+            </svg>
+            <span>Ceremonia</span>
+        </div>
+        </li>
+        <li class="timeline__item animate-up delay-3">
+        <div class="timeline__hora">[HORA]</div>
+        <div class="timeline__linea" aria-hidden="true"></div>
+        <div class="timeline__contenido">
+            <svg class="timeline__icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 8h14M5 8V5a1 1 0 011-1h8a1 1 0 011 1v3M3 8l1.5 8h11L17 8" stroke="#c9a84c" stroke-width="1" stroke-linecap="round"/>
+            </svg>
+            <span>Recepción y cóctel</span>
+        </div>
+        </li>
+        <li class="timeline__item animate-up delay-4">
+        <div class="timeline__hora">[HORA]</div>
+        <div class="timeline__linea" aria-hidden="true"></div>
+        <div class="timeline__contenido">
+            <svg class="timeline__icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M6 4v6a4 4 0 008 0V4M4 4h12" stroke="#c9a84c" stroke-width="1" stroke-linecap="round"/>
+            <line x1="10" y1="16" x2="10" y2="18" stroke="#c9a84c" stroke-width="1" stroke-linecap="round"/>
+            <line x1="7" y1="18" x2="13" y2="18" stroke="#c9a84c" stroke-width="1" stroke-linecap="round"/>
+            </svg>
+            <span>Cena</span>
+        </div>
+        </li>
+        <li class="timeline__item animate-up delay-5">
+        <div class="timeline__hora">[HORA]</div>
+        <div class="timeline__linea" aria-hidden="true"></div>
+        <div class="timeline__contenido">
+            <svg class="timeline__icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M10 3 Q14 6 14 10 Q14 15 10 17 Q6 15 6 10 Q6 6 10 3Z" stroke="#c9a84c" stroke-width="1" fill="none"/>
+            <circle cx="10" cy="10" r="2" stroke="#c9a84c" stroke-width="0.8"/>
+            </svg>
+            <span>Fiesta y celebración</span>
+        </div>
+        </li>
+    </ol>
+    </div>
+</section>
+
+<!-- ── 7. DRESS CODE ─────────────────────────────────────── -->
+<section class="dresscode section-ivory" aria-label="Dress Code">
+    <div class="container container--narrow">
+    <div class="dresscode__inner animate-up">
+        <div class="dresscode__ornamento" aria-hidden="true">
+        <svg viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 15 Q15 5 30 15 Q45 25 60 15" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.5"/>
+            <path d="M0 15 Q15 25 30 15 Q45 5 60 15" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.3"/>
+        </svg>
+        </div>
+        <p class="section-eyebrow">Para la ocasión</p>
+        <h2 class="section-title">Dress Code</h2>
+        <div class="dresscode__detalle animate-up delay-1">
+        <!-- PLACEHOLDER: reemplaza con el dress code real -->
+        <p class="dresscode__tipo">[DRESS CODE]</p>
+        <p class="dresscode__desc">
+            [Descripción o indicaciones adicionales sobre la vestimenta]
+        </p>
+        </div>
+        <div class="dresscode__ornamento dresscode__ornamento--bottom" aria-hidden="true">
+        <svg viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 15 Q15 5 30 15 Q45 25 60 15" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.5"/>
+            <path d="M0 15 Q15 25 30 15 Q45 5 60 15" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.3"/>
+        </svg>
+        </div>
+    </div>
+    </div>
+</section>
+
+<!-- ── 8. GALERÍA ─────────────────────────────────────────── -->
+<section class="galeria section-marfil" aria-label="Galería de fotografías">
+    <div class="container">
+    <p class="section-eyebrow animate-up">Nuestra historia</p>
+    <h2 class="section-title animate-up delay-1">Momentos</h2>
+
+    <div class="galeria__grid animate-up delay-2">
+        <figure class="galeria__item galeria__item--large">
+        <img src="assets/images/galeria-1.jpg" alt="Zuley y Gino — momento 1" loading="lazy" class="galeria__img" data-lightbox="1" onerror="this.parentElement.classList.add('img-placeholder')"/>
+        </figure>
+        <figure class="galeria__item">
+        <img src="assets/images/galeria-2.jpg" alt="Zuley y Gino — momento 2" loading="lazy" class="galeria__img" data-lightbox="2" onerror="this.parentElement.classList.add('img-placeholder')"/>
+        </figure>
+        <figure class="galeria__item">
+        <img src="assets/images/galeria-3.jpg" alt="Zuley y Gino — momento 3" loading="lazy" class="galeria__img" data-lightbox="3" onerror="this.parentElement.classList.add('img-placeholder')"/>
+        </figure>
+        <figure class="galeria__item galeria__item--wide">
+        <img src="assets/images/galeria-4.jpg" alt="Zuley y Gino — momento 4" loading="lazy" class="galeria__img" data-lightbox="4" onerror="this.parentElement.classList.add('img-placeholder')"/>
+        </figure>
+        <figure class="galeria__item">
+        <img src="assets/images/galeria-5.jpg" alt="Zuley y Gino — momento 5" loading="lazy" class="galeria__img" data-lightbox="5" onerror="this.parentElement.classList.add('img-placeholder')"/>
+        </figure>
+    </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Fotografía ampliada" hidden>
+    <button class="lightbox__cerrar" id="lightbox-cerrar" aria-label="Cerrar">&times;</button>
+    <button class="lightbox__prev" id="lightbox-prev" aria-label="Anterior">&#8249;</button>
+    <img class="lightbox__img" id="lightbox-img" src="" alt="" />
+    <button class="lightbox__next" id="lightbox-next" aria-label="Siguiente">&#8250;</button>
+    <div class="lightbox__fondo" id="lightbox-fondo"></div>
+    </div>
+</section>
+
+<!-- ── 9. UNA NOCHE PARA ADULTOS ─────────────────────────── -->
+<section class="adultos section-ivory" aria-label="Evento exclusivo para adultos">
+    <div class="container container--narrow">
+    <div class="adultos__inner animate-up">
+        <div class="adultos__ornamento" aria-hidden="true">
+        <svg viewBox="0 0 100 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="10" x2="38" y2="10" stroke="#c9a84c" stroke-width="0.7" opacity="0.4"/>
+            <circle cx="50" cy="10" r="3" stroke="#c9a84c" stroke-width="0.7" fill="none" opacity="0.5"/>
+            <line x1="62" y1="10" x2="100" y2="10" stroke="#c9a84c" stroke-width="0.7" opacity="0.4"/>
+        </svg>
+        </div>
+        <p class="section-eyebrow">Una velada íntima</p>
+        <h2 class="section-title">Una noche para celebrar</h2>
+        <p class="adultos__texto animate-up delay-1">
+        Hemos preparado esta celebración como una experiencia exclusiva para adultos.<br />
+        Agradecemos que nos acompañes sin niños.
+        </p>
+        <div class="adultos__ornamento adultos__ornamento--bottom" aria-hidden="true">
+        <svg viewBox="0 0 100 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="10" x2="38" y2="10" stroke="#c9a84c" stroke-width="0.7" opacity="0.4"/>
+            <circle cx="50" cy="10" r="3" stroke="#c9a84c" stroke-width="0.7" fill="none" opacity="0.5"/>
+            <line x1="62" y1="10" x2="100" y2="10" stroke="#c9a84c" stroke-width="0.7" opacity="0.4"/>
+        </svg>
+        </div>
+    </div>
+    </div>
+</section>
+
+<!-- ── 10. NUESTRO PRÓXIMO DESTINO (Regalos / Viaje) ──────── -->
+<section class="viaje section-marfil" aria-label="Nuestro próximo destino">
+    <div class="container container--narrow">
+    <p class="section-eyebrow animate-up">Con tu cariño</p>
+    <h2 class="section-title animate-up delay-1">Nuestro próximo destino</h2>
+
+    <!-- Ilustración de avión y trayectoria -->
+    <div class="viaje__ilustracion animate-up delay-2" aria-hidden="true">
+        <svg viewBox="0 0 280 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Línea de trayectoria punteada curva -->
+        <path d="M20 45 Q80 10 160 35 Q210 50 260 20" stroke="#c9a84c" stroke-width="0.9" stroke-dasharray="5 7" fill="none" opacity="0.45"/>
+        <!-- Punto de origen -->
+        <circle cx="20" cy="45" r="3" fill="#c9a84c" opacity="0.5"/>
+        <!-- Destino abierto -->
+        <circle cx="260" cy="20" r="3" stroke="#c9a84c" stroke-width="0.9" fill="none" opacity="0.5"/>
+        <!-- Avión lineal minimalista (a ≈ 160,35 volando hacia el destino) -->
+        <g transform="translate(148,28) rotate(-22)">
+            <path d="M0 0 L12 -4 L16 0 L12 4 Z" stroke="#c9a84c" stroke-width="0.9" fill="none" opacity="0.85"/>
+            <path d="M6 -4 L3 -10 L8 -8" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.7"/>
+            <path d="M6 4 L3 10 L8 8" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.7"/>
+            <path d="M12 0 L18 1" stroke="#c9a84c" stroke-width="0.8" stroke-linecap="round" opacity="0.5"/>
+        </g>
+        </svg>
+    </div>
+
+    <p class="viaje__texto animate-up delay-3">
+        Tu presencia es nuestro mejor regalo.<br />
+        Pero si deseas tener un detalle con nosotros,<br />
+        puedes ayudarnos a sumar kilómetros<br />
+        para nuestra próxima aventura juntos.
+    </p>
+
+    <div class="viaje__alias animate-up delay-4">
+        <p class="viaje__alias-label">Alias</p>
+        <p class="viaje__alias-valor" id="alias-valor">
+        <!-- El alias se inyecta desde JS -->
+        </p>
+        <button class="btn-alias" id="btn-copiar-alias" aria-label="Copiar alias al portapapeles">
+        <span id="alias-btn-texto">Copiar alias</span>
+        </button>
+    </div>
+
+    </div>
+</section>
+
+<!-- ── 11. RSVP ───────────────────────────────────────────── -->
+<section class="rsvp section-verde" aria-label="Confirmación de asistencia" id="rsvp">
+    <div class="container container--narrow">
+    <p class="section-label-light animate-up">Para nosotros es importante</p>
+    <h2 class="section-title section-title--light animate-up delay-1">¿Nos acompañas?</h2>
+    <p class="rsvp__subtexto animate-up delay-2">
+        Nos encantará compartir este día contigo.<br />
+        Por favor confirma tu asistencia antes del
+        <!-- PLACEHOLDER: fecha límite -->
+        <strong>[FECHA LÍMITE]</strong>.
+    </p>
+
+    <div id="rsvp-form-wrapper" class="animate-up delay-3">
+        <form id="rsvp-form" class="rsvp__form" novalidate>
+
+        <div class="campo">
+            <label class="campo__label" for="nombre">Nombre y apellido</label>
+            <input class="campo__input" type="text" id="nombre" name="nombre" autocomplete="name" required placeholder="Tu nombre completo" />
+        </div>
+
+        <fieldset class="campo campo--radio">
+            <legend class="campo__label">¿Asistirás?</legend>
+            <label class="radio-opcion">
+            <input type="radio" name="asistencia" value="si" required />
+            <span class="radio-opcion__check"></span>
+            Sí, allí estaré
+            </label>
+            <label class="radio-opcion">
+            <input type="radio" name="asistencia" value="no" />
+            <span class="radio-opcion__check"></span>
+            No podré asistir
+            </label>
+        </fieldset>
+
+        <div class="campo" id="campo-acompanantes-num">
+            <label class="campo__label" for="num-acompanantes">Cantidad de acompañantes</label>
+            <input class="campo__input" type="number" id="num-acompanantes" name="num_acompanantes" min="0" max="10" placeholder="0" />
+        </div>
+
+        <div class="campo" id="campo-acompanantes-nombres">
+            <label class="campo__label" for="nombres-acompanantes">Nombre/s de acompañantes</label>
+            <textarea class="campo__input campo__textarea" id="nombres-acompanantes" name="nombres_acompanantes" rows="2" placeholder="Ej: María López, Carlos López"></textarea>
+        </div>
+
+        <div class="campo">
+            <label class="campo__label" for="alimentacion">Restricciones o preferencias alimentarias</label>
+            <textarea class="campo__input campo__textarea" id="alimentacion" name="alimentacion" rows="2" placeholder="Vegetariano, celíaco, alergias, etc."></textarea>
+        </div>
+
+        <div class="campo">
+            <label class="campo__label" for="mensaje">Mensaje para los novios</label>
+            <textarea class="campo__input campo__textarea" id="mensaje" name="mensaje" rows="3" placeholder="Cuéntanos algo especial…"></textarea>
+        </div>
+
+        <div id="rsvp-error" class="rsvp__error" role="alert" hidden></div>
+
+        <button type="submit" class="btn-confirmar" id="btn-confirmar">
+            <span id="btn-texto">Confirmar asistencia</span>
+            <span id="btn-enviando" hidden>Enviando…</span>
+        </button>
+        </form>
+    </div>
+
+    <div id="rsvp-gracias" class="rsvp__gracias" hidden>
+        <div class="rsvp__gracias-ornamento" aria-hidden="true">
+        <svg viewBox="0 0 80 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="4" x2="30" y2="4" stroke="#c9a84c" stroke-width="0.7" opacity="0.6"/>
+            <circle cx="40" cy="4" r="2" fill="#c9a84c" opacity="0.7"/>
+            <line x1="50" y1="4" x2="80" y2="4" stroke="#c9a84c" stroke-width="0.7" opacity="0.6"/>
+        </svg>
+        </div>
+        <p class="rsvp__gracias-titulo">¡Gracias por confirmar!</p>
+        <p class="rsvp__gracias-texto">Nos hace mucha ilusión compartir este día contigo.</p>
+    </div>
+
+    </div>
+</section>
+
+<!-- ── 12. CIERRE ────────────────────────────────────────── -->
+<footer class="cierre section-ivory" aria-label="Cierre de la invitación">
+    <div class="cierre__botanico" aria-hidden="true">
+    <svg viewBox="0 0 300 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 40 Q75 10 150 40 Q225 70 300 40" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.35"/>
+        <path d="M20 40 Q90 60 150 40 Q210 20 280 40" stroke="#c9a84c" stroke-width="0.6" fill="none" opacity="0.2"/>
+        <circle cx="150" cy="40" r="3" fill="#c9a84c" opacity="0.4"/>
+        <circle cx="75" cy="28" r="1.5" fill="#c9a84c" opacity="0.3"/>
+        <circle cx="225" cy="52" r="1.5" fill="#c9a84c" opacity="0.3"/>
+    </svg>
+    </div>
+    <div class="container container--narrow">
+    <p class="cierre__nombres animate-up">Zuley &amp; Gino</p>
+    <p class="cierre__fecha animate-up delay-1">12 · 12 · 2026</p>
+    <p class="cierre__frase animate-up delay-2">
+        <!-- PLACEHOLDER: frase final -->
+        "[FRASE FINAL]"
+    </p>
+    </div>
+</footer>
+
+</main><!-- /main -->
+
+<!-- ============================================================
+    CONTROL DE MÚSICA (flotante)
+    ============================================================ -->
+<div class="music-control" id="music-control" aria-label="Control de música" hidden>
+<button class="music-btn" id="music-toggle" aria-label="Reproducir música">
+    <svg id="icon-play" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.2"/>
+    <path d="M10 8l6 4-6 4V8z" fill="currentColor"/>
+    </svg>
+    <svg id="icon-pause" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" hidden>
+    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.2"/>
+    <line x1="9" y1="8" x2="9" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="15" y1="8" x2="15" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+</button>
+<audio id="audio-boda" loop preload="none">
+    <source src="assets/audio/musica-fondo.mp3" type="audio/mpeg" />
+</audio>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
