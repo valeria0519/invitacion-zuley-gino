@@ -1,0 +1,14 @@
+Colocá acá el archivo de música de fondo con el nombre exacto:
+
+musica-fondo.mp3
+
+Luego, en index.html, dentro de <audio id="audio-boda">, descomentá la línea:
+
+<source src="assets/audio/musica-fondo.mp3" type="audio/mpeg" />
+
+El reproductor (sección "Nuestra canción") y el botón flotante ya están
+preparados para funcionar apenas el archivo exista — no hace falta tocar
+el JavaScript.
+
+También podés completar el nombre real de la canción reemplazando
+[NOMBRE DE LA CANCIÓN] en index.html (id="cancion-nombre").

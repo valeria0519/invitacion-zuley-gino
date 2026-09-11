@@ -269,7 +269,7 @@ sobreScreen.classList.add('cerrado');
 contenido.setAttribute('aria-hidden', 'false');
 contenido.classList.add('visible');
 if (musicControl) musicControl.removeAttribute('hidden');
-intentarReproducirMusica();
+/* La música no se reproduce automáticamente: el invitado debe presionar reproducir. */
 
 /* Devolver el foco */
 setTimeout(() => {
@@ -293,7 +293,7 @@ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrirSobre(); }
 /* ================================================================
 2. ANIMACIONES DE ENTRADA — IntersectionObserver
 ================================================================ */
-const elementosAnimados = document.querySelectorAll('.animate-up');
+const elementosAnimados = document.querySelectorAll('.animate-up, .animate-photo, .animate-botanica');
 
 const observador = new IntersectionObserver(
 (entradas) => {
@@ -338,24 +338,94 @@ setInterval(actualizarContador, 1000);
 
 /* ================================================================
 4. CONTROL DE MÚSICA
+(botón flotante + reproductor embebido en la sección "Nuestra canción",
+ambos comparten el mismo <audio id="audio-boda">)
 ================================================================ */
 const audio       = document.getElementById('audio-boda');
 const musicToggle = document.getElementById('music-toggle');
 const iconPlay    = document.getElementById('icon-play');
 const iconPause   = document.getElementById('icon-pause');
 
-function mostrarIconoPlay()  { iconPlay.removeAttribute('hidden'); iconPause.setAttribute('hidden',''); musicToggle.setAttribute('aria-label','Reproducir música'); }
-function mostrarIconoPausa() { iconPause.removeAttribute('hidden'); iconPlay.setAttribute('hidden',''); musicToggle.setAttribute('aria-label','Pausar música'); }
+const playerToggle   = document.getElementById('player-toggle');
+const playerIcon     = document.getElementById('player-icon');
+const playerLabel    = document.getElementById('player-label');
+const musicProgress  = document.getElementById('music-progress');
+const musicCurrent   = document.getElementById('music-current');
+const musicDuration  = document.getElementById('music-duration');
+const musicStatus    = document.getElementById('music-status');
 
-function intentarReproducirMusica() {
-const p = audio.play();
-if (p) p.then(mostrarIconoPausa).catch(mostrarIconoPlay);
+/** True si ya se colocó el archivo MP3 (existe un <source> dentro del <audio>). */
+function audioTieneFuente() { return !!audio.querySelector('source'); }
+
+function formatearTiempo(seg) {
+if (!isFinite(seg) || seg < 0) return '0:00';
+const m = Math.floor(seg / 60);
+const s = Math.floor(seg % 60);
+return `${m}:${String(s).padStart(2, '0')}`;
 }
 
-musicToggle.addEventListener('click', () => {
-if (audio.paused) { audio.play().then(mostrarIconoPausa); }
-else              { audio.pause(); mostrarIconoPlay(); }
+function actualizarUIMusica(reproduciendo) {
+if (reproduciendo) {
+    iconPlay.setAttribute('hidden', '');
+    iconPause.removeAttribute('hidden');
+    musicToggle.setAttribute('aria-label', 'Pausar música');
+} else {
+    iconPause.setAttribute('hidden', '');
+    iconPlay.removeAttribute('hidden');
+    musicToggle.setAttribute('aria-label', 'Reproducir música');
+}
+if (playerIcon)  playerIcon.textContent = reproduciendo ? '❚❚' : '▶';
+if (playerLabel) playerLabel.textContent = reproduciendo ? 'Pausar' : 'Reproducir';
+if (playerToggle) {
+    playerToggle.setAttribute('aria-pressed', reproduciendo ? 'true' : 'false');
+    playerToggle.setAttribute('aria-label', reproduciendo ? 'Pausar nuestra canción' : 'Reproducir nuestra canción');
+}
+}
+
+function alternarMusica() {
+if (!audioTieneFuente()) {
+    if (musicStatus) musicStatus.textContent = 'Música próximamente. Agregá el archivo en assets/audio/musica-fondo.mp3.';
+    return;
+}
+if (audio.paused) {
+    audio.play()
+    .then(() => actualizarUIMusica(true))
+    .catch(() => { if (musicStatus) musicStatus.textContent = 'No se pudo reproducir la música.'; });
+} else {
+    audio.pause();
+    actualizarUIMusica(false);
+}
+}
+
+musicToggle.addEventListener('click', alternarMusica);
+if (playerToggle) playerToggle.addEventListener('click', alternarMusica);
+
+audio.addEventListener('loadedmetadata', () => {
+if (musicProgress) {
+    musicProgress.max = audio.duration;
+    musicProgress.disabled = false;
+}
+if (musicDuration) musicDuration.textContent = formatearTiempo(audio.duration);
+if (musicStatus)   musicStatus.textContent = '';
 });
+
+audio.addEventListener('timeupdate', () => {
+if (musicProgress && !musicProgress.matches(':active')) musicProgress.value = audio.currentTime;
+if (musicCurrent) musicCurrent.textContent = formatearTiempo(audio.currentTime);
+});
+
+audio.addEventListener('pause', () => actualizarUIMusica(false));
+audio.addEventListener('play',  () => actualizarUIMusica(true));
+
+if (musicProgress) {
+musicProgress.addEventListener('input', () => {
+    if (isFinite(audio.duration)) audio.currentTime = Number(musicProgress.value);
+});
+}
+
+if (!audioTieneFuente() && musicStatus) {
+musicStatus.textContent = 'Presioná reproducir para escuchar. (Falta colocar el MP3 en assets/audio/musica-fondo.mp3)';
+}
 
 /* ================================================================
 5. GALERÍA / LIGHTBOX
@@ -430,7 +500,10 @@ const btnCopiarAlias = document.getElementById('btn-copiar-alias');
 const aliasBtnTexto = document.getElementById('alias-btn-texto');
 
 // Inyectar el alias desde la constante
-if (aliasValorEl) aliasValorEl.textContent = BANK_ALIAS;
+if (aliasValorEl) {
+aliasValorEl.textContent = BANK_ALIAS;
+if (BANK_ALIAS.startsWith('REEMPLAZAR')) aliasValorEl.classList.add('dato-pendiente');
+}
 
 if (btnCopiarAlias) {
 btnCopiarAlias.addEventListener('click', async () => {
@@ -484,6 +557,7 @@ const btnEnviando  = document.getElementById('btn-enviando');
 const errorDiv     = document.getElementById('rsvp-error');
 const wrapperForm  = document.getElementById('rsvp-form-wrapper');
 const gracias      = document.getElementById('rsvp-gracias');
+const configNotice = document.getElementById('rsvp-config-notice');
 
 // Prellenar el nombre si viene por URL
 const inputNombre = document.getElementById('nombre');
@@ -491,8 +565,19 @@ if (inputNombre && INVITADO) {
 inputNombre.value = INVITADO;
 }
 
+/** true solo si TODOS los valores de CONFIG_FORM fueron completados (ninguno quedó con el placeholder). */
+const formularioConfigurado = Object.values(CONFIG_FORM).every((v) => !v.startsWith('REEMPLAZAR'));
+
+if (!formularioConfigurado && configNotice) {
+configNotice.removeAttribute('hidden');
+}
+
 form.addEventListener('submit', async (e) => {
 e.preventDefault();
+if (!formularioConfigurado) {
+    mostrarError('El formulario aún no está conectado a Google Forms. Completá CONFIG_FORM en js/main.js antes de publicar.');
+    return;
+}
 if (!validarFormulario()) return;
 
 btnConfirmar.disabled = true;
