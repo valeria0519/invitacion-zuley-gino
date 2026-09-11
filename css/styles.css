@@ -677,7 +677,7 @@ transition: opacity 0.9s cubic-bezier(0.22,0.61,0.36,1), transform 0.9s cubic-be
 .sobre-tagline__texto { animation: none; }
 .animate-up { opacity: 1; transform: none; transition: none; }
 .animate-photo { opacity: 1; transform: none; transition: none; }
-.animate-botanica, .botanica { opacity: var(--botanica-opacity, 0.42); transform: none; transition: none; }
+.animate-botanica, .detalle-floral { opacity: var(--botanica-opacity, 0.42); transform: none; transition: none; }
 .foto-principal__img { opacity: 1; transform: none; transition: none; }
 #sobre-screen, #contenido-principal { transition: none; }
 .sobre__solapa-top-wrap { transition: none; }
@@ -693,7 +693,7 @@ transition: opacity 0.9s cubic-bezier(0.22,0.61,0.36,1), transform 0.9s cubic-be
 /* ================================================================
 HERO
 ================================================================ */
-.hero { padding: var(--espacio-xl) 0 var(--espacio-lg); text-align: center; position: relative; }
+.hero { padding: var(--espacio-xl) 0 var(--espacio-lg); text-align: center; position: relative; overflow: hidden; }
 .hero__inner { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
 .hero__nombres {
 font-family: var(--f-script);
@@ -751,18 +751,58 @@ transition: opacity 1.2s ease, transform 1.2s ease;
 }
 .animate-botanica.visible { opacity: var(--botanica-opacity, 0.42); }
 
-.botanica {
+/* Detalles florales — clase general reutilizable + variantes por lugar.
+   Las secciones que las contienen (.hero, .evento, .viaje, .cierre)
+   tienen position:relative + overflow:hidden para que el ramo pueda
+   "entrar" parcialmente cortado por el borde sin generar scroll ni
+   invadir secciones vecinas. */
+.detalle-floral {
 position: absolute;
-width: clamp(105px, 22vw, 190px);
 height: auto;
 color: #68704f;
 pointer-events: none;
 z-index: 0;
-transform: translateX(-16px);
+transform: translateX(0);
 }
-.botanica.visible { transform: translateX(0); }
-.botanica--left  { left: -18px; top: 8%; }
-.botanica--right { right: -18px; bottom: 6%; transform: translateX(16px); }
+
+/* Ramo grande — hero, entra desde la izquierda */
+.detalle-floral--hero-izq {
+width: clamp(130px, 30vw, 220px);
+left: -20px;
+top: 3%;
+--botanica-opacity: 0.68;
+}
+
+/* Ramo mediano — hero, entra desde la derecha a otra altura (evita simetría) */
+.detalle-floral--hero-der {
+width: clamp(100px, 22vw, 170px);
+right: -16px;
+top: 46%;
+--botanica-opacity: 0.6;
+}
+
+/* Detalles chicos y sutiles entre secciones (evento / viaje) */
+.detalle-floral--intermedio {
+width: clamp(66px, 15vw, 112px);
+--botanica-opacity: 0.42;
+}
+.detalle-floral--intermedio-der { right: -12px; bottom: 8%; }
+.detalle-floral--intermedio-izq { left: -12px; top: 10%; }
+
+/* Composición de cierre — queda en el flujo normal, centrada arriba
+   del nombre (no "entra" desde un borde como las anteriores). */
+.detalle-floral--cierre {
+position: static;
+display: block;
+width: clamp(145px, 34vw, 210px);
+margin-inline: auto;
+margin-bottom: var(--espacio-md);
+--botanica-opacity: 0.55;
+}
+
+@media (min-width: 900px) {
+.detalle-floral--hero-der { top: 40%; right: -22px; }
+}
 
 .hero__inner, .evento > .container, .viaje > .container { position: relative; z-index: 1; }
 
@@ -998,7 +1038,7 @@ line-height: 1.6;
 /* ================================================================
 CEREMONIA & RECEPCIÓN
 ================================================================ */
-.evento { padding: var(--espacio-xl) 0; position: relative; }
+.evento { padding: var(--espacio-xl) 0; position: relative; overflow: hidden; }
 .evento__datos {
 display: flex;
 flex-direction: column;
@@ -1225,7 +1265,7 @@ margin-inline: auto;
 /* ================================================================
 NUESTRO PRÓXIMO DESTINO (Viaje / Alias)
 ================================================================ */
-.viaje { padding: var(--espacio-xl) 0; text-align: center; position: relative; }
+.viaje { padding: var(--espacio-xl) 0; text-align: center; position: relative; overflow: hidden; }
 
 .viaje__ilustracion {
 width: min(280px, 90%);
@@ -1442,7 +1482,6 @@ align-self: center;
 CIERRE
 ================================================================ */
 .cierre { padding: var(--espacio-xl) 0; text-align: center; position: relative; overflow: hidden; }
-.cierre__botanico { width: clamp(145px, 38vw, 220px); max-width: 220px; margin-inline: auto; margin-bottom: var(--espacio-md); --botanica-opacity: 0.48; color: #68704f; }
 .cierre__nombres { font-family: var(--f-script); font-size: clamp(2.8rem, 9vw, 5rem); font-weight: 400; color: var(--c-dorado); line-height: 1.1; margin-bottom: 0.4rem; }
 .cierre__fecha { font-family: var(--f-serif); font-size: clamp(0.85rem, 2.5vw, 1.1rem); font-weight: 300; letter-spacing: 0.3em; color: var(--c-texto-suave); margin-bottom: var(--espacio-md); }
 .cierre__frase { font-family: var(--f-serif); font-style: italic; font-size: clamp(1rem, 3vw, 1.3rem); font-weight: 300; color: var(--c-texto-suave); max-width: 380px; margin-inline: auto; line-height: 1.6; }

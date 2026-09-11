@@ -208,7 +208,91 @@ rel="stylesheet"
 <!-- ============================================================
     CONTENIDO PRINCIPAL (oculto hasta apertura)
     ============================================================ -->
-<svg class="botanica-defs" width="0" height="0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="rama-floral" viewBox="0 0 180 300"><g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><path d="M25 296C48 238 103 153 123 37M60 225Q16 189 15 151M84 177Q139 167 162 123M106 110Q65 92 57 57"/><path d="M40 262Q7 247 16 217Q47 230 40 262ZM59 223Q75 188 99 199Q94 224 59 223ZM80 182Q44 169 47 139Q77 148 80 182ZM101 133Q126 111 143 127Q128 151 101 133ZM111 94Q85 73 94 51Q118 66 111 94ZM121 53Q137 29 147 39Q143 60 121 53ZM28 180Q3 170 7 148Q29 156 28 180ZM140 148Q139 121 161 114Q171 136 140 148Z"/><g stroke="#b79a62" transform="translate(124 30)"><path d="M0 0C-20-5-19-25-6-21C-3-39 15-31 11-18C30-23 31-3 15 0C29 14 12 24 4 11C-6 29-22 15-12 5C-28 8-29-12-13-11Z"/><circle r="4"/></g><g transform="translate(56 53)"><path d="M0 0C-22-4-13-22-3-12C4-32 24-18 12-6C34 1 18 21 7 10C0 31-20 13-9 5C-27 15-29-8-13-7Z"/><circle r="3" fill="#f2ede6"/></g></g></symbol></defs></svg>
+<svg class="botanica-defs" width="0" height="0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+<defs>
+
+<!-- Motivos botánicos reutilizables (línea fina, sin negro puro) -->
+<g id="motivo-flor">
+    <g fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round">
+    <path d="M20 20C14 17 13 6 20 2C27 6 26 17 20 20Z"/>
+    <path d="M20 20C14 17 13 6 20 2C27 6 26 17 20 20Z" transform="rotate(72 20 20)"/>
+    <path d="M20 20C14 17 13 6 20 2C27 6 26 17 20 20Z" transform="rotate(144 20 20)"/>
+    <path d="M20 20C14 17 13 6 20 2C27 6 26 17 20 20Z" transform="rotate(216 20 20)"/>
+    <path d="M20 20C14 17 13 6 20 2C27 6 26 17 20 20Z" transform="rotate(288 20 20)"/>
+    </g>
+    <circle cx="20" cy="20" r="2" fill="currentColor"/>
+    <circle cx="17.3" cy="18" r="0.55" fill="currentColor"/>
+    <circle cx="22.7" cy="18" r="0.55" fill="currentColor"/>
+    <circle cx="20" cy="23.2" r="0.55" fill="currentColor"/>
+</g>
+<g id="motivo-capullo">
+    <path d="M7 24L7 9" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>
+    <path d="M7 9C4.2 7 4.2 2 7 0C9.8 2 9.8 7 7 9Z" fill="none" stroke="currentColor" stroke-width="0.9"/>
+</g>
+<g id="motivo-hoja">
+    <path d="M8 32C1 24 1 9 8 0C15 9 15 24 8 32Z" fill="none" stroke="currentColor" stroke-width="0.9"/>
+    <path d="M8 29L8 3" fill="none" stroke="currentColor" stroke-width="0.55"/>
+</g>
+
+<!-- Ramo grande — hero, lateral izquierdo -->
+<symbol id="floral-grande" viewBox="0 0 190 300">
+    <g fill="none" stroke="currentColor" stroke-width="1.05" stroke-linecap="round">
+    <path d="M18 297C42 238 98 150 121 36M57 224Q13 189 12 150M82 176Q137 165 159 121M103 108Q62 90 54 55"/>
+    </g>
+    <use href="#motivo-hoja" transform="translate(28 252) rotate(-18) scale(0.9)"/>
+    <use href="#motivo-hoja" transform="translate(66 206) rotate(24) scale(0.75)"/>
+    <use href="#motivo-hoja" transform="translate(42 166) rotate(-38) scale(0.62)"/>
+    <use href="#motivo-hoja" transform="translate(118 150) rotate(38) scale(0.62)"/>
+    <use href="#motivo-hoja" transform="translate(148 106) rotate(16) scale(0.56)"/>
+    <use href="#motivo-hoja" transform="translate(78 88) rotate(-22) scale(0.56)"/>
+    <use href="#motivo-capullo" transform="translate(94 164) rotate(12) scale(0.8)"/>
+    <use href="#motivo-capullo" transform="translate(136 116) rotate(-14) scale(0.62)"/>
+    <use href="#motivo-flor" transform="translate(105 90) scale(1.05)"/>
+    <use href="#motivo-flor" transform="translate(53 38) rotate(-10) scale(0.92)"/>
+    <use href="#motivo-flor" transform="translate(28 163) rotate(14) scale(0.78)"/>
+    <use href="#motivo-flor" transform="translate(148 53) rotate(22) scale(0.66)"/>
+</symbol>
+
+<!-- Ramo mediano — hero, lateral derecho (otra altura, entra desde la derecha) -->
+<symbol id="floral-mediano" viewBox="0 0 160 260">
+    <g fill="none" stroke="currentColor" stroke-width="1.05" stroke-linecap="round">
+    <path d="M142 257C122 202 82 132 62 32M101 191Q136 167 139 131M76 111Q101 86 96 51"/>
+    </g>
+    <use href="#motivo-hoja" transform="translate(130 214) rotate(20) scale(0.78) scale(-1,1)"/>
+    <use href="#motivo-hoja" transform="translate(96 160) rotate(-26) scale(0.6)"/>
+    <use href="#motivo-hoja" transform="translate(120 128) rotate(30) scale(0.55)"/>
+    <use href="#motivo-hoja" transform="translate(70 78) rotate(-18) scale(0.55)"/>
+    <use href="#motivo-capullo" transform="translate(112 128) rotate(-10) scale(0.68)"/>
+    <use href="#motivo-flor" transform="translate(90 47) rotate(-12) scale(0.95)"/>
+    <use href="#motivo-flor" transform="translate(130 128) rotate(16) scale(0.68)"/>
+</symbol>
+
+<!-- Detalle sutil — decoraciones intermedias (evento / viaje) -->
+<symbol id="floral-sutil" viewBox="0 0 110 170">
+    <g fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+    <path d="M95 167C79 130 55 88 45 28"/>
+    </g>
+    <use href="#motivo-hoja" transform="translate(80 128) rotate(-24) scale(0.55)"/>
+    <use href="#motivo-hoja" transform="translate(58 82) rotate(20) scale(0.5)"/>
+    <use href="#motivo-capullo" transform="translate(64 90) rotate(-8) scale(0.6)"/>
+    <use href="#motivo-flor" transform="translate(37 28) rotate(-8) scale(0.85)"/>
+</symbol>
+
+<!-- Composición de cierre — footer, centrada y simétrica -->
+<symbol id="floral-cierre" viewBox="0 0 170 210">
+    <g fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+    <path d="M85 206C85 165 85 115 85 22M85 148Q57 139 47 111M85 99Q113 91 125 66"/>
+    </g>
+    <use href="#motivo-hoja" transform="translate(66 156) rotate(-30) scale(0.55)"/>
+    <use href="#motivo-hoja" transform="translate(104 130) rotate(28) scale(0.52)"/>
+    <use href="#motivo-capullo" transform="translate(72 116) rotate(-12) scale(0.55)"/>
+    <use href="#motivo-flor" transform="translate(75 12) scale(0.85)"/>
+    <use href="#motivo-flor" transform="translate(37 100) rotate(-10) scale(0.6)"/>
+    <use href="#motivo-flor" transform="translate(115 55) rotate(14) scale(0.6)"/>
+</symbol>
+
+</defs>
+</svg>
 <main id="contenido-principal" aria-hidden="true" inert>
 
 <!-- 1. FOTO-PRINCIPAL -->
@@ -230,7 +314,8 @@ rel="stylesheet"
 
 <!-- 2. HERO -->
 <section class="hero section-marfil" aria-label="Presentación de los novios">
-<svg class="botanica botanica--left animate-botanica" viewBox="0 0 180 300" aria-hidden="true"><use href="#rama-floral"/></svg>
+<svg class="detalle-floral detalle-floral--hero-izq animate-botanica" viewBox="0 0 190 300" aria-hidden="true" focusable="false"><use href="#floral-grande"/></svg>
+<svg class="detalle-floral detalle-floral--hero-der animate-botanica" viewBox="0 0 160 260" aria-hidden="true" focusable="false"><use href="#floral-mediano"/></svg>
 <div class="hero__inner container container--narrow">
 <h1 class="hero__nombres animate-up" tabindex="-1">Zuhey &amp; Gino</h1>
 <p class="hero__anuncio animate-up delay-1">NOS CASAMOS</p>
@@ -282,7 +367,7 @@ rel="stylesheet"
 
 <!-- 6. EVENTO -->
 <section class="evento section-marfil" aria-label="Ceremonia y Recepción">
-<svg class="botanica botanica--right animate-botanica" viewBox="0 0 180 300" aria-hidden="true"><use href="#rama-floral"/></svg>
+<svg class="detalle-floral detalle-floral--intermedio detalle-floral--intermedio-der animate-botanica" viewBox="0 0 110 170" aria-hidden="true" focusable="false"><use href="#floral-sutil"/></svg>
     <div class="container container--narrow">
     <p class="section-eyebrow animate-up">Les damos la bienvenida</p>
     <h2 class="section-title animate-up delay-1">Ceremonia &amp; Recepción</h2>
@@ -466,7 +551,7 @@ rel="stylesheet"
 
 <!-- 9. VIAJE -->
 <section class="viaje section-marfil" aria-label="Nuestro próximo destino">
-<svg class="botanica botanica--left animate-botanica" viewBox="0 0 180 300" aria-hidden="true"><use href="#rama-floral"/></svg>
+<svg class="detalle-floral detalle-floral--intermedio detalle-floral--intermedio-izq animate-botanica" viewBox="0 0 110 170" aria-hidden="true" focusable="false"><use href="#floral-sutil"/></svg>
     <div class="container container--narrow">
     <p class="section-eyebrow animate-up">Con tu cariño</p>
     <h2 class="section-title animate-up delay-1">Nuestro próximo destino</h2>
@@ -621,7 +706,7 @@ rel="stylesheet"
 
 <!-- 12. CIERRE -->
 <footer class="cierre section-marfil" aria-label="Cierre de la invitación">
-    <svg class="cierre__botanico animate-botanica" viewBox="0 0 180 300" aria-hidden="true"><use href="#rama-floral"/></svg>
+    <svg class="detalle-floral detalle-floral--cierre animate-botanica" viewBox="0 0 170 210" aria-hidden="true" focusable="false"><use href="#floral-cierre"/></svg>
     <div class="container container--narrow">
     <p class="cierre__nombres animate-up">Zuhey &amp; Gino</p>
     <p class="cierre__fecha animate-up delay-1">12 · 12 · 2026</p>
