@@ -73,6 +73,27 @@ return (!isNaN(n) && n >= 0) ? n : 10; // sin límite por defecto
 const CODIGO_INVITADO = urlParams.get('codigo') || '';
 
 /* ================================================================
+0.5 FUENTES WEB — evita el salto del sobre al reemplazar la fuente
+    de reserva por la definitiva (FOUT). El html arranca con la clase
+    "fonts-cargando" (agregada inline en el <head>, antes de pintar),
+    que mantiene invisibles pero con su espacio reservado a los
+    textos afectados. Al resolver document.fonts.ready (o vencer un
+    timeout de seguridad) se quita la clase y aparecen con un fundido.
+================================================================ */
+(function gestionarFuentes() {
+const raiz = document.documentElement;
+const listas = () => raiz.classList.remove('fonts-cargando');
+if (document.fonts && document.fonts.ready) {
+    Promise.race([
+    document.fonts.ready,
+    new Promise((resolve) => setTimeout(resolve, 600)),
+    ]).then(listas);
+} else {
+    setTimeout(listas, 300);
+}
+})();
+
+/* ================================================================
 1. EXPERIENCIA DE APERTURA — SOBRE ANIMADO (v3 premium)
 ================================================================ */
 const sobreScreen  = document.getElementById('sobre-screen');

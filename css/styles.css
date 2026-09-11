@@ -152,6 +152,17 @@ visibility: hidden;
 pointer-events: none;
 }
 
+/* Evita el salto/parpadeo del sobre cuando Google Fonts reemplaza la
+   fuente de reserva (FOUT): mientras las fuentes cargan, estos textos
+   quedan invisibles pero conservan su espacio (opacity, no display),
+   así el alto de #sobre-screen no cambia y el sobre no se recentra. */
+html.fonts-cargando .portada-nombres,
+html.fonts-cargando .portada-monograma,
+html.fonts-cargando .sobre-mensaje-invitado,
+html.fonts-cargando .sobre-tagline {
+opacity: 0;
+}
+
 
 /* ── Cabecera — texto introductorio ───────────────────────────── */
 .sobre-header {
@@ -175,6 +186,7 @@ line-height: 1.2;
 letter-spacing: 0.08em;
 color: #858A72;
 white-space: nowrap;
+transition: opacity 0.3s ease;
 }
 
 /* Ocupa el aire sobre el sobre, sin sumar altura a la escena. */
@@ -192,6 +204,7 @@ text-shadow: 1px 1px 1px rgba(255,255,255,0.9),
              -1px -1px 1px rgba(116,108,91,0.16);
 pointer-events: none;
 user-select: none;
+transition: opacity 0.3s ease;
 }
 
 .portada-monograma__g {
@@ -648,7 +661,7 @@ transition: opacity 0.9s cubic-bezier(0.22,0.61,0.36,1), transform 0.9s cubic-be
 .sobre-tagline__texto { animation: none; }
 .animate-up { opacity: 1; transform: none; transition: none; }
 .animate-photo { opacity: 1; transform: none; transition: none; }
-.animate-botanica, .botanica { opacity: var(--botanica-opacity, 0.16); transform: none; transition: none; }
+.animate-botanica, .botanica { opacity: var(--botanica-opacity, 0.42); transform: none; transition: none; }
 .foto-principal__img { opacity: 1; transform: none; transition: none; }
 #sobre-screen, #contenido-principal { transition: none; }
 .sobre__solapa-top-wrap { transition: none; }
@@ -656,6 +669,7 @@ transition: opacity 0.9s cubic-bezier(0.22,0.61,0.36,1), transform 0.9s cubic-be
 .lacre { transition: none; }
 .sobre-sombra { transition: none; }
 .sobre-pretexto, .sobre-mensaje-invitado, .sobre-tagline { transition: none; }
+.portada-nombres, .portada-monograma { transition: none; }
 
 .sobre__sello-hint { animation: none; }
 }
@@ -719,13 +733,13 @@ ORNAMENTOS BOTÁNICOS (decorativos)
 opacity: 0;
 transition: opacity 1.2s ease, transform 1.2s ease;
 }
-.animate-botanica.visible { opacity: var(--botanica-opacity, 0.16); }
+.animate-botanica.visible { opacity: var(--botanica-opacity, 0.42); }
 
 .botanica {
 position: absolute;
-width: clamp(64px, 14vw, 130px);
+width: clamp(105px, 22vw, 190px);
 height: auto;
-color: #7f7a59;
+color: #68704f;
 pointer-events: none;
 z-index: 0;
 transform: translateX(-16px);
@@ -968,7 +982,7 @@ line-height: 1.6;
 /* ================================================================
 CEREMONIA & RECEPCIÓN
 ================================================================ */
-.evento { padding: var(--espacio-xl) 0; }
+.evento { padding: var(--espacio-xl) 0; position: relative; }
 .evento__datos {
 display: flex;
 flex-direction: column;
@@ -1195,7 +1209,7 @@ margin-inline: auto;
 /* ================================================================
 NUESTRO PRÓXIMO DESTINO (Viaje / Alias)
 ================================================================ */
-.viaje { padding: var(--espacio-xl) 0; text-align: center; }
+.viaje { padding: var(--espacio-xl) 0; text-align: center; position: relative; }
 
 .viaje__ilustracion {
 width: min(280px, 90%);
@@ -1412,7 +1426,7 @@ align-self: center;
 CIERRE
 ================================================================ */
 .cierre { padding: var(--espacio-xl) 0; text-align: center; position: relative; overflow: hidden; }
-.cierre__botanico { width: 100%; max-width: 340px; margin-inline: auto; margin-bottom: var(--espacio-md); --botanica-opacity: 0.6; color: #7f7a59; }
+.cierre__botanico { width: clamp(145px, 38vw, 220px); max-width: 220px; margin-inline: auto; margin-bottom: var(--espacio-md); --botanica-opacity: 0.48; color: #68704f; }
 .cierre__nombres { font-family: var(--f-script); font-size: clamp(2.8rem, 9vw, 5rem); font-weight: 400; color: var(--c-dorado); line-height: 1.1; margin-bottom: 0.4rem; }
 .cierre__fecha { font-family: var(--f-serif); font-size: clamp(0.85rem, 2.5vw, 1.1rem); font-weight: 300; letter-spacing: 0.3em; color: var(--c-texto-suave); margin-bottom: var(--espacio-md); }
 .cierre__frase { font-family: var(--f-serif); font-style: italic; font-size: clamp(1rem, 3vw, 1.3rem); font-weight: 300; color: var(--c-texto-suave); max-width: 380px; margin-inline: auto; line-height: 1.6; }
