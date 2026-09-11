@@ -275,7 +275,8 @@ setTimeout(() => {
 
     sobreTarjeta.style.transition =
         'transform 1.4s cubic-bezier(0.16,1,0.3,1), ' +
-        'box-shadow 1.4s ease';
+        'box-shadow 1.4s ease, opacity 0.3s ease';
+    sobreTarjeta.classList.add('saliendo');
     sobreTarjeta.style.transform =
         `translateX(-50%) translateY(calc(-${subirPx}px - 100% + 12px))`;
     sobreTarjeta.style.boxShadow =

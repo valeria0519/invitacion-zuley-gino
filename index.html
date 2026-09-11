@@ -56,11 +56,17 @@ rel="stylesheet"
 
 <!-- Cabecera -->
 <div class="sobre-header" id="sobre-header" aria-label="Mensaje de apertura">
-    <p class="sobre-pretexto" id="sobre-pretexto">TENEMOS ALGO PARA TI</p>
-    <p class="sobre-pretexto-nombres" id="sobre-pretexto-nombres">Zuhey &amp; Gino</p>
-    <p class="sobre-pretexto-fecha" id="sobre-pretexto-fecha">12 · 12 · 2026</p>
-</div>
 
+    <p class="portada-nombres">
+        ZUHEY &amp; GINO
+    </p>
+
+    <div class="portada-monograma" aria-hidden="true">
+        <span class="portada-monograma__z">Z</span>
+        <span class="portada-monograma__g">G</span>
+    </div>
+
+</div>
 <!-- Escena del sobre -->
 <div class="sobre-escena" id="sobre-escena">
 
@@ -170,7 +176,7 @@ rel="stylesheet"
                 id="sobre-sello"
                 aria-label="Toca el sello para abrir la invitación"
                 type="button"
-            >
+                >
                 <!-- Capas del lacre: fondo, relieve, luz, texto -->
                 <div class="lacre" aria-hidden="true">
                     <!-- Capa base del lacre (color sólido) -->
@@ -224,12 +230,11 @@ rel="stylesheet"
                 <span class="sobre__sello-hint" aria-hidden="true">Toca el sello para abrir</span>
             </button>
 
+            <p class="sobre-tagline" id="sobre-tagline"><span class="sobre-tagline__texto">Finalmente, para siempre.</span></p>
+
         </div><!-- /sobre -->
     </div><!-- /sobre-wrapper -->
 </div><!-- /sobre-escena -->
-
-<!-- Firma inferior -->
-<p class="sobre-tagline" id="sobre-tagline">Finalmente, para siempre.</p>
 
 <!-- Mensaje personalizado al invitado (inyectado por JS) -->
 <p class="sobre-mensaje-invitado" id="sobre-mensaje-invitado"></p>
