@@ -34,6 +34,8 @@ Mobile-first | Sin frameworks
 
 html { scroll-behavior: smooth; font-size: 16px; -webkit-text-size-adjust: 100%; }
 
+html, body { width: 100%; margin: 0; }
+
 body {
 font-family: var(--f-sans);
 font-weight: 300;
@@ -41,6 +43,20 @@ color: var(--c-texto);
 background: var(--c-marfil);
 overflow-x: hidden;
 line-height: 1.7;
+}
+
+/* Bloquea el scroll/rebote del navegador mientras se muestra la
+   portada del sobre (#sobre-screen). Es un estado TEMPORAL: main.js
+   quita esta clase en finalizarApertura(), devolviendo el scroll
+   normal al body — nunca queda overflow:hidden permanente. */
+body.sobre-activo {
+position: fixed;
+inset: 0;
+width: 100%;
+height: 100dvh;
+overflow: hidden;
+overscroll-behavior: none;
+touch-action: none;
 }
 
 img { display: block; max-width: 100%; height: auto; }
@@ -1486,6 +1502,27 @@ FOCO VISIBLE — Accesibilidad
     .sobre-wrapper {
         width: 430px;
         height: 290px;
+    }
+}
+
+/* ================================================================
+PORTADA DEL SOBRE — MOBILE (< 900px)
+Alto real de viewport (100dvh, contempla las barras del navegador) y
+centrado horizontal reforzado. No cambia anchos/altos del sobre en sí
+(esos siguen viniendo de .sobre-escena / .sobre-wrapper sin tocar).
+================================================================ */
+@media (max-width: 899px) {
+    #sobre-screen {
+        width: 100%;
+        height: 100dvh;
+        min-height: 100dvh;
+        padding-inline: 0;
+        box-sizing: border-box;
+    }
+
+    .sobre-escena,
+    .sobre-wrapper {
+        margin-inline: auto;
     }
 }
 

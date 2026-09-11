@@ -191,6 +191,10 @@ setTimeout(
 }
 
 function finalizarApertura() {
+/* Libera el scroll bloqueado por la portada (ver body.sobre-activo en
+   styles.css) antes de mostrar el contenido, para no dejarlo nunca
+   fijo de forma permanente. */
+document.body.classList.remove('sobre-activo');
 window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 contenido.inert = false;
 sobreScreen.setAttribute('aria-hidden', 'true');
