@@ -154,31 +154,6 @@ pointer-events: none;
 z-index: 8;
 }
 
-/* ── Botánicos de fondo ────────────────────────────────────────── */
-.sobre-bg-botanico {
-position: absolute;
-inset: 0;
-pointer-events: none;
-overflow: hidden;
-z-index: 1;
-}
-.botanico-tl {
-position: absolute;
-top: -12px;
-left: -12px;
-width: min(240px, 52vw);
-height: auto;
-opacity: 0.9;
-}
-.botanico-br {
-position: absolute;
-bottom: -12px;
-right: -12px;
-width: min(240px, 52vw);
-height: auto;
-transform: rotate(180deg);
-opacity: 0.9;
-}
 
 /* ── Cabecera — texto introductorio ───────────────────────────── */
 .sobre-header {
@@ -1377,3 +1352,21 @@ RESPONSIVE — DESKTOP
 FOCO VISIBLE — Accesibilidad
 ================================================================ */
 :focus-visible { outline: 2px solid var(--c-dorado); outline-offset: 3px; }
+
+
+/* Agrandar el sobre solamente en desktop */
+@media (min-width: 900px) {
+    .sobre-escena {
+        width: 430px;
+        height: 470px;
+    }
+
+    .sobre-wrapper {
+        width: 430px;
+        height: 290px;
+    }
+
+    .sobre__tarjeta {
+        height: 320px;
+    }
+}
